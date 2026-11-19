@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="emerald">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>All In One x Imran — Creator & Studio</title>
+  <meta name="description" content="Official hub of All In One x Imran, Unseen Tech Bangla, Unseen Kingdom KSA, and openworldxbd." />
+  <meta name="theme-color" content="#07110d" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" /></noscript>
+  <style>
+    :root {
+      --bg: #060d0a;
+      --surface: rgba(14, 28, 22, 0.78);
+      --surface-solid: #0d1c16;
+      --border: rgba(16, 185, 129, 0.22);
+      --accent: #10b981;
+      --accent-2: #34d399;
+      --glow: rgba(16, 185, 129, 0.45);
+      --text: #f0fdf4;
+      --muted: #94a3b8;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    [data-theme="gold"] {
+      --bg: #0c0a06;
+      --surface: rgba(28, 22, 12, 0.8);
+      --surface-solid: #1a140b;
+      --border: rgba(245, 158, 11, 0.26);
+      --accent: #f59e0b;
+      --accent-2: #fbbf24;
+      --glow: rgba(245, 158, 11, 0.45);
+      --text: #fffbeb;
+    }
+    [data-theme="midnight"] {
+      --bg: #060a14;
+      --surface: rgba(13, 22, 42, 0.8);
+      --surface-solid: #0d162a;
+      --border: rgba(56, 189, 248, 0.24);
+      --accent: #38bdf8;
+      --accent-2: #7dd3fc;
+      --glow: rgba(56, 189, 248, 0.45);
+      --text: #f0f9ff;
+    }
+    [data-theme="obsidian"] {
+      --bg: #050507;
+      --surface: rgba(18, 18, 24, 0.84);
+      --surface-solid: #121218;
+      --border: rgba(168, 85, 247, 0.26);
+      --accent: #a855f7;
+      --accent-2: #c084fc;
+      --glow: rgba(168, 85, 247, 0.45);
+      --text: #faf5ff;
+    }
+    [data-theme="pearl"] {
+      --bg: #f4f7f6;
+      --surface: rgba(255, 255, 255, 0.88);
+      --surface-solid: #ffffff;
+      --border: rgba(16, 185, 129, 0.28);
+      --accent: #059669;
+      --accent-2: #10b981;
+      --glow: rgba(5, 150, 105, 0.3);
+      --text: #0f172a;
+      --muted: #475569;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.35s var(--ease), color 0.35s var(--ease);
+    }
+    #bgCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 14px 16px 36px;
+    }
+
+    /* Topbar */
+    .topbar {
+      position: sticky;
+      top: 10px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 20px;
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+      margin-bottom: 18px;
+    }
+    .brand-left { display: flex; align-items: center; gap: 10px; }
+    .mini-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: radial-gradient(circle, var(--accent), transparent 72%);
+      border: 1.5px solid var(--accent);
+      overflow: hidden; display: grid; place-items: center;
+    }
+    .mini-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 24%; }
+    .brand-title { font-size: 14px; font-weight: 800; letter-spacing: 0.6px; color: var(--accent-2); }
+    .brand-sub { font-size: 10px; color: var(--muted); letter-spacing: 0.4px; }
+    .top-actions { display: flex; gap: 8px; }
+    .icon-btn {
+      width: 36px; height: 36px; border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      display: grid; place-items: center;
+      cursor: pointer;
+      transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
+    }
+    .icon-btn:active { transform: scale(0.92); }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 24px 16px 20px;
+      border-radius: 26px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+      margin-bottom: 14px;
+    }
+    .avatar-ring {
+      position: relative;
+      width: 126px; height: 126px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+    }
+    .avatar-ring::before {
+      content: "";
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      border: 2px dashed var(--accent);
+      opacity: 0.65;
+      animation: spin 18s linear infinite;
+    }
+    .avatar-ring::after {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      border: 2px solid var(--accent-2);
+      box-shadow: 0 0 26px var(--glow), inset 0 0 18px var(--glow);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .avatar-circle {
+      width: 114px; height: 114px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 40%, rgba(16,185,129,0.22), rgba(0,0,0,0.85));
+      position: relative;
+      z-index: 2;
+    }
+    .avatar-circle img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 50% 26%;
+      transform: translateY(-4%) scale(0.96);
+      filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 14px var(--glow));
+    }
+    .hero h1 { font-size: 22px; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 6px; }
+    .hero p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* Channel Switcher */
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    @media (min-width: 560px) { .tabs { grid-template-columns: repeat(4, 1fr); } }
+    .tab-btn {
+      padding: 10px 10px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.5s var(--ease);
+    }
+    .tab-btn.active {
+      color: var(--text);
+      border-color: var(--accent);
+      box-shadow: 0 0 18px var(--glow);
+      background: linear-gradient(135deg, rgba(16,185,129,0.18), var(--surface-solid));
+    }
+
+    /* Active Channel Card */
+    .ccard {
+      padding: 16px;
+      border-radius: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 14px;
+      transition: all 0.5s var(--ease);
+    }
+    .ccard-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .ccard-title { font-size: 16px; font-weight: 700; color: var(--accent-2); }
+    .badge {
+      font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;
+      border: 1px solid var(--accent); color: var(--accent-2);
+    }
+    .ccard-desc { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-bottom: 12px; }
+    .chat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .chat-btn {
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: transform 0.35s var(--ease), border-color 0.35s var(--ease);
+    }
+    .chat-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+    /* Social Links */
+    .socials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+    .soc-card {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px; border-radius: 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      text-decoration: none; color: var(--text);
+      transition: border-color 0.35s var(--ease), transform 0.35s var(--ease);
+    }
+    .soc-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .soc-name { font-size: 13px; font-weight: 700; }
+    .soc-handle { font-size: 11px; color: var(--muted); }
+
+    /* Live Code Box (Lines 1 to 10) */
+    .code-box {
+      border-radius: 20px;
+      background: #070d0b;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 16px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .code-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 9px 14px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 11px; color: var(--muted);
+    }
+    .dots { display: flex; gap: 6px; }
+    .dots span { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+    .code-body { padding: 10px 12px; font-size: 11.5px; line-height: 1.65; }
+    .cline { display: flex; gap: 12px; white-space: nowrap; overflow: hidden; }
+    .lnum { color: #475569; width: 18px; text-align: right; user-select: none; }
+    .kw { color: #34d399; }
+    .str { color: #fbbf24; }
+    .prop { color: #38bdf8; }
+
+    /* My Tech & Gear (Non-selectable side-by-side grid) */
+    .sec-label {
+      font-size: 11px; font-weight: 800; letter-spacing: 1.2px;
+      color: var(--muted); text-transform: uppercase;
+      margin: 6px 2px 10px;
+      user-select: none;
+    }
+    .gear-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+      user-select: none;
+      -webkit-user-select: none;
+      pointer-events: none;
+    }
+    @media (min-width: 640px) { .gear-grid { grid-template-columns: repeat(4, 1fr); } }
+    .gear-card {
+      padding: 13px 12px;
+      border-radius: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .gear-tag {
+      display: inline-block;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+      padding: 3px 7px; border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--accent-2);
+      margin-bottom: 8px;
+    }
+    .gear-name { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+    .gear-sub { font-size: 11px; color: var(--muted); line-height: 1.35; }
+
+    /* Theme Modal (0.5s smooth open/close) */
+    .overlay {
+      position: fixed; inset: 0; z-index: 60;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.5s var(--ease), visibility 0.5s var(--ease);
+    }
+    .overlay.open { opacity: 1; visibility: visible; pointer-events: auto; }
+    .modal {
+      width: 100%; max-width: 360px;
+      background: var(--surface-solid);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 18px;
+      transform: translateY(14px) scale(0.96);
+      transition: transform 0.5s var(--ease);
+    }
+    .overlay.open .modal { transform: translateY(0) scale(1); }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .theme-list { display: grid; gap: 8px; }
+    .theme-opt {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 14px; border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text); font-size: 13px; font-weight: 600;
+      cursor: pointer;
+    }
+    .swatch { width: 14px; height: 14px; border-radius: 50%; }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      padding-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="wrap">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="brand-left">
+        <div class="mini-avatar">
+          <img id="miniAvatarImg" src="avatar.png" alt="Imran" onerror="this.style.display='none'" />
+        </div>
+        <div>
+          <div class="brand-title">ALLINONEXIMRAN</div>
+          <div class="brand-sub">Creator &amp; Studio</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" id="openThemeBtn" aria-label="Theme Switcher">🎨</button>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="avatar-ring">
+        <div class="avatar-circle">
+          <img id="heroAvatarImg" src="avatar.png" alt="All In One x Imran" />
+        </div>
+      </div>
+      <h1>ALL IN ONE X IMRAN</h1>
+      <p>Assalamualaikum — আসসালামু আলাইকুম<br/>Mobile-First Web Builder, Tech Creator &amp; Digital Studio</p>
+    </section>
+
+    <!-- Channel Switcher -->
+    <nav class="tabs" id="channelTabs">
+      <button class="tab-btn active" data-ch="main">All In One x Imran</button>
+      <button class="tab-btn" data-ch="tech">Unseen Tech Bangla</button>
+      <button class="tab-btn" data-ch="ksa">Unseen Kingdom KSA</button>
+      <button class="tab-btn" data-ch="dev">openworldxbd</button>
+    </nav>
+
+    <!-- Channel Details & Direct Chat -->
+    <section class="ccard" id="channelCard">
+      <div class="ccard-head">
+        <div class="ccard-title" id="chTitle">All In One x Imran</div>
+        <span class="badge" id="chBadge">OFFICIAL HUB</span>
+      </div>
+      <p class="ccard-desc" id="chDesc">Official creator hub for mobile web apps, digital branding, tutorials, and personal projects.</p>
+      <div class="chat-row">
+        <a class="chat-btn" href="https://m.me/allinoneximran" target="_blank" rel="noopener">Messenger</a>
+        <a class="chat-btn" href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="chat-btn" href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+      </div>
+    </section>
+
+    <!-- Socials -->
+    <section class="socials" id="socialsGrid"></section>
+
+    <!-- Live Code Box (Lines 1-10) -->
+    <section class="code-box">
+      <div class="code-head">
+        <div class="dots">
+          <span style="background:#ef4444"></span>
+          <span style="background:#f59e0b"></span>
+          <span style="background:#10b981"></span>
+        </div>
+        <span>index.html • LIVE</span>
+      </div>
+      <div class="code-body" id="liveCodeBody"></div>
+    </section>
+
+    <!-- My Tech & Gear -->
+    <div class="sec-label">MY TECH &amp; GEAR</div>
+    <section class="gear-grid">
+      <div class="gear-card">
+        <span class="gear-tag">PRIMARY PHONE</span>
+        <div class="gear-name">iPhone 17 Pro Max</div>
+        <div class="gear-sub">Daily Driver • Pro Camera &amp; Studio</div>
+      </div>
+      <div class="gear-card">
+        <span class="gear-tag">PERFORMANCE</span>
+        <div class="gear-name">Poco X8 Pro Max</div>
+        <div class="gear-sub">Gaming &amp; Android Dev Testing</div>
+      </div>
+      <div class="gear-card">
+        <span class="gear-tag">WEARABLE</span>
+        <div class="gear-name">Redmi Watch 6</div>
+        <div class="gear-sub">AMOLED Fitness &amp; Smart Alerts</div>
+      </div>
+      <div class="gear-card">
+        <span class="gear-tag">AUDIO</span>
+        <div class="gear-name">MeloBuds N65</div>
+        <div class="gear-sub">ANC Wireless Earbuds • Hi-Res</div>
+      </div>
+    </section>
+
+    <footer>© COPYRIGHT BY ALLINONEXIMRAN - 2026</footer>
+  </div>
+
+  <!-- Theme Modal -->
+  <div class="overlay" id="themeOv">
+    <div class="modal">
+      <div class="modal-head">
+        <strong>Select Theme</strong>
+        <button class="icon-btn" id="closeThemeBtn">✕</button>
+      </div>
+      <div class="theme-list">
+        <button class="theme-opt" data-set-theme="emerald"><span>Emerald Studio</span><span class="swatch" style="background:#10b981"></span></button>
+        <button class="theme-opt" data-set-theme="gold"><span>Royal Gold</span><span class="swatch" style="background:#f59e0b"></span></button>
+        <button class="theme-opt" data-set-theme="midnight"><span>Midnight Blue</span><span class="swatch" style="background:#38bdf8"></span></button>
+        <button class="theme-opt" data-set-theme="obsidian"><span>Obsidian Cyber</span><span class="swatch" style="background:#a855f7"></span></button>
+        <button class="theme-opt" data-set-theme="pearl"><span>Pearl Light</span><span class="swatch" style="background:#059669"></span></button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CHANNELS = {
+      main: { title: "All In One x Imran", badge: "OFFICIAL HUB", desc: "Official creator hub for mobile web apps, digital branding, tutorials, and personal projects." },
+      tech: { title: "Unseen Tech Bangla", badge: "TECH MEDIA", desc: "Bangla tech guides, smartphone tips, open-source apps, and lightweight mobile workflows." },
+      ksa:  { title: "Unseen Kingdom KSA", badge: "KSA VLOGS", desc: "Exploring Saudi Arabia, daily life, travel highlights, and visual stories from the Kingdom." },
+      dev:  { title: "openworldxbd", badge: "DEV STUDIO", desc: "Lightweight web utilities, API endpoints, and mobile-first open-source software tools." }
+    };
+
+    const SOCIALS = [
+      { name: "Facebook", handle: "@allinoneximran", url: "https://facebook.com" },
+      { name: "YouTube", handle: "All In One x Imran", url: "https://youtube.com" },
+      { name: "GitHub", handle: "openworldxbd", url: "https://github.com" },
+      { name: "Instagram", handle: "@allinoneximran", url: "https://instagram.com" }
+    ];
+
+    // Render Socials in single DocumentFragment
+    const frag = document.createDocumentFragment();
+    SOCIALS.forEach(s => {
+      const a = document.createElement("a");
+      a.className = "soc-card";
+      a.href = s.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.innerHTML = `<div><div class="soc-name">${s.name}</div><div class="soc-handle">${s.handle}</div></div><span>↗</span>`;
+      frag.appendChild(a);
+    });
+    document.getElementById("socialsGrid").appendChild(frag);
+
+    // Channel Switcher
+    let activeChannel = "main";
+    document.getElementById("channelTabs").addEventListener("click", e => {
+      const btn = e.target.closest(".tab-btn");
+      if (!btn) return;
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeChannel = btn.dataset.ch;
+      const info = CHANNELS[activeChannel];
+      document.getElementById("chTitle").textContent = info.title;
+      document.getElementById("chBadge").textContent = info.badge;
+      document.getElementById("chDesc").textContent = info.desc;
+    });
+
+    // Theme Switcher (0.5s smooth modal)
+    const themeOv = document.getElementById("themeOv");
+    document.getElementById("openThemeBtn").onclick = () => themeOv.classList.add("open");
+    document.getElementById("closeThemeBtn").onclick = () => themeOv.classList.remove("open");
+    themeOv.onclick = e => { if (e.target === themeOv) themeOv.classList.remove("open"); };
+    document.querySelectorAll("[data-set-theme]").forEach(btn => {
+      btn.onclick = () => {
+        document.documentElement.setAttribute("data-theme", btn.dataset.setTheme);
+        localStorage.setItem("imran_theme", btn.dataset.setTheme);
+        themeOv.classList.remove("open");
+      };
+    });
+    const savedTheme = localStorage.getItem("imran_theme");
+    if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+
+    // Continuous Live Code Box (Lines 1 to 10)
+    const codeBody = document.getElementById("liveCodeBody");
+    function renderCode() {
+      const now = new Date().toLocaleTimeString("en-GB", { hour12: false });
+      const theme = document.documentElement.getAttribute("data-theme") || "emerald";
+      const lines = [
+        `<span class="kw">const</span> studio = {`,
+        `  <span class="prop">brand</span>: <span class="str">"All In One x Imran"</span>,`,
+        `  <span class="prop">channel</span>: <span class="str">"${CHANNELS[activeChannel].title}"</span>,`,
+        `  <span class="prop">location</span>: <span class="str">"Saudi Arabia"</span>,`,
+        `  <span class="prop">theme</span>: <span class="str">"${theme}"</span>,`,
+        `  <span class="prop">fps</span>: <span class="str">120</span>,`,
+        `  <span class="prop">mode</span>: <span class="str">"ultra-lightweight"</span>,`,
+        `  <span class="prop">status</span>: <span class="str">"ONLINE"</span>,`,
+        `  <span class="prop">clock</span>: <span class="str">"${now}"</span>`,
+        `};`
+      ];
+      codeBody.innerHTML = lines.map((html, i) =>
+        `<div class="cline"><span class="lnum">${i + 1}</span><span>${html}</span></div>`
+      ).join("");
+    }
+    renderCode();
+    setInterval(renderCode, 1000);
+
+    // Lightweight Particle Canvas
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    let w, h, pts = [];
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      pts = Array.from({ length: 24 }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.8 + 0.6,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35
+      }));
+    }
+    window.addEventListener("resize", resize);
+    resize();
+    function tick() {
+      ctx.clearRect(0, 0, w, h);
+      const accent = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#10b981";
+      ctx.fillStyle = accent;
+      ctx.globalAlpha = 0.28;
+      for (const p of pts) {
+        p.x = (p.x + p.vx + w) % w;
+        p.y = (p.y + p.vy + h) % h;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>
