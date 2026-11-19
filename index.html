@@ -2,6 +2,7 @@
 <title>Premium Portfolio</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preload" href="./profile.webp" as="image" fetchpriority="high">
+<link rel="preload" href="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" as="image" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Rubik+Wet+Paint&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: one 600px column on a deep navy field with drifting particles. Glass top bar, hero card with ringed avatar, channel tabs with a notched detail card, social rows, a code card, footer. */
@@ -134,7 +135,7 @@ a { color: inherit; touch-action: manipulation; }
 .mini { width: 30px; height: 30px; border-radius: 50%; padding: 1.5px; flex: none; background: conic-gradient(var(--accent), var(--accent-2), var(--accent)); display: grid; place-items: center; cursor: pointer; }
 .mini span { width: 100%; height: 100%; border-radius: 50%; background: var(--photo-bg); display: grid; place-items: center; overflow: hidden; }
 .mini svg { width: 18px; height: 18px; display: block; }
-.mini img, .face img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--img-x, 50%) var(--img-y, 26%); transform: scale(var(--img-s, 0.96)) translateY(-5%); transform-origin: var(--img-x, 50%) var(--img-y, 26%); background: transparent; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 75%, transparent)) drop-shadow(0 0 14px color-mix(in srgb, var(--accent-2) 55%, transparent)); opacity: 1 !important; transition: none !important; animation: none !important; }
+.mini img, .face img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--img-x, 50%) var(--img-y, 26%); transform: scale(var(--img-s, 0.96)) translateY(-5%); transform-origin: var(--img-x, 50%) var(--img-y, 26%); background: transparent; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 75%, transparent)) drop-shadow(0 0 14px color-mix(in srgb, var(--accent-2) 55%, transparent)); }
 .face { position: relative; }
 .actions { display: flex; align-items: center; gap: 8px; }
 .icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; cursor: pointer; transition: background .12s, border-color .12s, transform .1s; flex: none; }
@@ -410,7 +411,7 @@ footer p { margin: 0; font-family: var(--font-brand); letter-spacing: .05em; fon
 <header class="topbar">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Home">
-      <span class="mini"><span data-avatar><img src="./profile.webp" alt="Imran" fetchpriority="high" decoding="sync" onerror="this.onerror=null;this.src='https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png'"></span></span>
+      <span class="mini"><span data-avatar><img src="./profile.webp" alt="Imran" fetchpriority="high" decoding="sync"></span></span>
       <span class="name grad" data-name>ALLINONEXIMRAN</span>
     </a>
     <div class="actions">
@@ -423,7 +424,7 @@ footer p { margin: 0; font-family: var(--font-brand); letter-spacing: .05em; fon
 <main class="page wrap" id="top">
   <div class="col-left">
     <section class="hero" aria-label="Profile">
-      <div class="avatar"><div class="face" data-avatar><img src="./profile.webp" alt="Imran" fetchpriority="high" decoding="sync" onerror="this.onerror=null;this.src='https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png'"></div></div>
+      <div class="avatar"><div class="face" data-avatar><img src="./profile.webp" alt="Imran" fetchpriority="high" decoding="sync"></div></div>
       <h1 class="hname"><span class="grad" data-name>ALLINONEXIMRAN</span><svg class="badge" aria-label="Verified" role="img"><use href="#i-verified"/></svg></h1>
       <p class="greet"><span id="typed">Assalamualaikum - আসসালামু আলাইকুম</span><i class="caret" aria-hidden="true"></i></p>
     </section>
@@ -675,71 +676,320 @@ footer p { margin: 0; font-family: var(--font-brand); letter-spacing: .05em; fon
     el.style.setProperty('--img-s', cropState.s);
   }
 
-  /* Zero-flicker instant logo sync: uses pre-cached clean cutout if present, otherwise keeps static <img> untouched */
-  (function initInstantAvatar() {
-    var cached = null;
-    try { cached = localStorage.getItem('pf-avatar-clean-v3'); } catch (e) {}
+  function makePortraitCanvas() {
+    var c = document.createElement('canvas');
+    c.width = 240; c.height = 240;
+    var g = c.getContext('2d');
+
+    /* Blue-to-orange glowing circular backdrop matching your reference */
+    var bg = g.createLinearGradient(15, 25, 225, 215);
+    bg.addColorStop(0, '#1D4ED8');
+    bg.addColorStop(0.46, '#3B82F6');
+    bg.addColorStop(0.75, '#EA580C');
+    bg.addColorStop(1, '#F59E0B');
+    g.fillStyle = bg;
+    g.fillRect(0, 0, 240, 240);
+
+    var glow = g.createRadialGradient(120, 105, 8, 120, 110, 118);
+    glow.addColorStop(0, 'rgba(255,255,255,0.42)');
+    glow.addColorStop(0.55, 'rgba(255,255,255,0.08)');
+    glow.addColorStop(1, 'rgba(5,10,24,0.34)');
+    g.fillStyle = glow;
+    g.fillRect(0, 0, 240, 240);
+
+    /* Tailored dark suit shoulders */
+    var suit = g.createLinearGradient(0, 170, 0, 240);
+    suit.addColorStop(0, '#182032');
+    suit.addColorStop(1, '#070A12');
+    g.fillStyle = suit;
+    g.beginPath();
+    g.moveTo(24, 244);
+    g.bezierCurveTo(32, 188, 66, 172, 120, 172);
+    g.bezierCurveTo(174, 172, 208, 188, 216, 244);
+    g.closePath();
+    g.fill();
+
+    /* Crisp white shirt & folded collar */
+    g.fillStyle = '#F8FAFC';
+    g.beginPath();
+    g.moveTo(91, 168);
+    g.lineTo(120, 234);
+    g.lineTo(149, 168);
+    g.lineTo(134, 160);
+    g.lineTo(120, 182);
+    g.lineTo(106, 160);
+    g.closePath();
+    g.fill();
+
+    /* Suit lapels */
+    g.fillStyle = '#0F1624';
+    g.beginPath();
+    g.moveTo(88, 172); g.lineTo(111, 236); g.lineTo(86, 210); g.lineTo(92, 196); g.lineTo(80, 190);
+    g.closePath(); g.fill();
+    g.beginPath();
+    g.moveTo(152, 172); g.lineTo(129, 236); g.lineTo(154, 210); g.lineTo(148, 196); g.lineTo(160, 190);
+    g.closePath(); g.fill();
+
+    /* Navy blue silk tie */
+    var tie = g.createLinearGradient(112, 182, 128, 240);
+    tie.addColorStop(0, '#1E3A8A');
+    tie.addColorStop(0.5, '#1D4ED8');
+    tie.addColorStop(1, '#172554');
+    g.fillStyle = tie;
+    g.beginPath();
+    g.moveTo(114, 182); g.lineTo(126, 182); g.lineTo(124, 193); g.lineTo(116, 193);
+    g.closePath(); g.fill();
+    g.beginPath();
+    g.moveTo(116, 193); g.lineTo(124, 193); g.lineTo(129, 235); g.lineTo(120, 242); g.lineTo(111, 235);
+    g.closePath(); g.fill();
+
+    /* Neck & natural chin shadow */
+    g.fillStyle = '#E4AA8B';
+    g.beginPath();
+    g.moveTo(101, 138); g.lineTo(101, 172);
+    g.quadraticCurveTo(120, 184, 139, 172);
+    g.lineTo(139, 138); g.closePath(); g.fill();
+
+    g.fillStyle = 'rgba(175,112,84,0.45)';
+    g.beginPath();
+    g.moveTo(101, 144);
+    g.quadraticCurveTo(120, 162, 139, 144);
+    g.lineTo(139, 155);
+    g.quadraticCurveTo(120, 170, 101, 155);
+    g.closePath(); g.fill();
+
+    /* Ears */
+    g.fillStyle = '#E5AC8D';
+    g.beginPath(); g.ellipse(81, 107, 6.5, 12.5, -0.06, 0, Math.PI * 2); g.fill();
+    g.beginPath(); g.ellipse(159, 107, 6.5, 12.5, 0.06, 0, Math.PI * 2); g.fill();
+
+    /* Soft realistic skin-shaded face */
+    var face = g.createRadialGradient(120, 96, 12, 120, 102, 54);
+    face.addColorStop(0, '#FAD2BA');
+    face.addColorStop(0.68, '#EEB696');
+    face.addColorStop(1, '#D79775');
+    g.fillStyle = face;
+    g.beginPath();
+    g.moveTo(83, 86);
+    g.bezierCurveTo(83, 56, 157, 56, 157, 86);
+    g.bezierCurveTo(157, 120, 144, 147, 120, 151);
+    g.bezierCurveTo(96, 147, 83, 120, 83, 86);
+    g.closePath();
+    g.fill();
+
+    /* Subtle cheek warmth */
+    g.fillStyle = 'rgba(218,132,108,0.18)';
+    g.beginPath(); g.ellipse(96, 114, 9, 6, 0, 0, Math.PI * 2); g.fill();
+    g.beginPath(); g.ellipse(144, 114, 9, 6, 0, 0, Math.PI * 2); g.fill();
+
+    /* Eyebrows */
+    g.strokeStyle = '#1E1412';
+    g.lineWidth = 4;
+    g.lineCap = 'round';
+    g.beginPath(); g.moveTo(91, 91); g.quadraticCurveTo(103, 86.5, 113.5, 90.8); g.stroke();
+    g.beginPath(); g.moveTo(126.5, 90.8); g.quadraticCurveTo(137, 86.5, 149, 91); g.stroke();
+
+    /* Eyes with catchlights */
+    [102.8, 137.2].forEach(function (ex) {
+      g.fillStyle = '#FFFFFF';
+      g.beginPath(); g.ellipse(ex, 100.5, 6.8, 4.1, 0, 0, Math.PI * 2); g.fill();
+      g.fillStyle = '#1C110E';
+      g.beginPath(); g.arc(ex, 100.5, 3.5, 0, Math.PI * 2); g.fill();
+      g.fillStyle = '#FFFFFF';
+      g.beginPath(); g.arc(ex + 1.3, 99.2, 1.15, 0, Math.PI * 2); g.fill();
+      g.strokeStyle = '#241714';
+      g.lineWidth = 1.6;
+      g.beginPath(); g.moveTo(ex - 6.8, 99.5); g.quadraticCurveTo(ex, 95.4, ex + 6.8, 99.5); g.stroke();
+    });
+
+    /* Nose bridge & tip */
+    g.strokeStyle = 'rgba(182,120,90,0.75)';
+    g.lineWidth = 2.6;
+    g.beginPath();
+    g.moveTo(120, 99);
+    g.lineTo(117.2, 115.5);
+    g.quadraticCurveTo(120, 118.8, 123.5, 115.5);
+    g.stroke();
+
+    /* Light mustache & soul-patch */
+    g.strokeStyle = 'rgba(48,32,26,0.48)';
+    g.lineWidth = 2.4;
+    g.beginPath(); g.moveTo(108.5, 125.2); g.quadraticCurveTo(120, 122.6, 131.5, 125.2); g.stroke();
+    g.lineWidth = 2.5;
+    g.beginPath(); g.moveTo(115, 141.2); g.quadraticCurveTo(120, 143.4, 125, 141.2); g.stroke();
+
+    /* Natural lips */
+    g.fillStyle = '#C97B6B';
+    g.beginPath();
+    g.moveTo(108.8, 131);
+    g.quadraticCurveTo(120, 128.4, 131.2, 131);
+    g.quadraticCurveTo(120, 136.8, 108.8, 131);
+    g.fill();
+    g.strokeStyle = 'rgba(130,64,54,0.55)';
+    g.lineWidth = 1.4;
+    g.beginPath(); g.moveTo(110.2, 131.1); g.quadraticCurveTo(120, 132.4, 129.8, 131.1); g.stroke();
+
+    /* Side-swept dark hair */
+    var hair = g.createLinearGradient(80, 40, 160, 92);
+    hair.addColorStop(0, '#130D0C');
+    hair.addColorStop(0.55, '#291D1A');
+    hair.addColorStop(1, '#110B0A');
+    g.fillStyle = hair;
+    g.beginPath();
+    g.moveTo(80.5, 93);
+    g.bezierCurveTo(77, 60, 93.5, 40, 122, 40);
+    g.bezierCurveTo(147, 40, 163, 57, 159.5, 93);
+    g.bezierCurveTo(157, 77, 150, 69, 138.5, 67);
+    g.bezierCurveTo(123, 71.5, 102, 69, 87.5, 77.5);
+    g.bezierCurveTo(83.5, 81.5, 81.5, 87.5, 80.5, 93);
+    g.closePath();
+    g.fill();
+
+    return c.toDataURL('image/png');
+  }
+
+  var builtInPortrait = makePortraitCanvas();
+  var cachedCleanPortrait = null;
+  try { cachedCleanPortrait = localStorage.getItem('pf-avatar-clean-v3'); } catch (e) {}
+
+  function stripOuterBg(imgEl, callback) {
+    try {
+      var maxDim = 360;
+      var nw = imgEl.naturalWidth || 360;
+      var nh = imgEl.naturalHeight || 360;
+      var scale = Math.min(1, maxDim / Math.max(nw, nh));
+      var w = Math.max(1, Math.round(nw * scale));
+      var h = Math.max(1, Math.round(nh * scale));
+      var c = document.createElement('canvas');
+      c.width = w;
+      c.height = h;
+      var ctx = c.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(imgEl, 0, 0, w, h);
+      var imgData = ctx.getImageData(0, 0, w, h);
+      var d = imgData.data;
+
+      var c0 = (d[0] + d[1] + d[2]) / 3;
+      var isBlackBg = c0 < 18 && d[3] > 200;
+
+      var visited = new Uint8Array(w * h);
+      var stack = [];
+
+      function isBgPixel(idx) {
+        var p = idx * 4;
+        var r = d[p], g = d[p + 1], b = d[p + 2], a = d[p + 3];
+        if (a < 24) return true;
+        if (isBlackBg) return r <= 12 && g <= 12 && b <= 12;
+        return r > 220 && g > 220 && b > 220 && Math.abs(r - g) < 24 && Math.abs(g - b) < 24;
+      }
+
+      var shoulderCutoff = Math.floor(h * 0.92);
+      for (var x = 0; x < w; x++) {
+        stack.push(x);
+        visited[x] = 1;
+      }
+      for (var y = 0; y < shoulderCutoff; y++) {
+        var leftIdx = y * w;
+        var rightIdx = y * w + (w - 1);
+        if (!visited[leftIdx]) { visited[leftIdx] = 1; stack.push(leftIdx); }
+        if (!visited[rightIdx]) { visited[rightIdx] = 1; stack.push(rightIdx); }
+      }
+
+      while (stack.length > 0) {
+        var cur = stack.pop();
+        if (!isBgPixel(cur)) continue;
+        d[cur * 4 + 3] = 0;
+
+        var cx = cur % w;
+        var cy = (cur - cx) / w;
+        if (!isBlackBg && cy > Math.floor(h * 0.72) && cx > w * 0.34 && cx < w * 0.66) continue;
+
+        if (cx > 0 && !visited[cur - 1]) { visited[cur - 1] = 1; stack.push(cur - 1); }
+        if (cx < w - 1 && !visited[cur + 1]) { visited[cur + 1] = 1; stack.push(cur + 1); }
+        if (cy > 0 && !visited[cur - w]) { visited[cur - w] = 1; stack.push(cur - w); }
+        if (cy < h - 1 && !visited[cur + w]) { visited[cur + w] = 1; stack.push(cur + w); }
+      }
+
+      for (var pass = 0; pass < 2; pass++) {
+        var toFade = [];
+        for (var py = 1; py < h - 1; py++) {
+          for (var px = 1; px < w - 1; px++) {
+            var i = py * w + px;
+            var p4 = i * 4;
+            if (d[p4 + 3] === 0) continue;
+            var hasTransparentNeighbor =
+              d[(i - 1) * 4 + 3] === 0 ||
+              d[(i + 1) * 4 + 3] === 0 ||
+              d[(i - w) * 4 + 3] === 0 ||
+              d[(i + w) * 4 + 3] === 0;
+            if (hasTransparentNeighbor) {
+              var lum = (d[p4] + d[p4 + 1] + d[p4 + 2]) / 3;
+              if (isBlackBg ? lum < 22 : lum > 180) toFade.push(p4);
+            }
+          }
+        }
+        for (var f = 0; f < toFade.length; f++) {
+          var fp = toFade[f];
+          d[fp + 3] = Math.round(d[fp + 3] * (pass === 0 ? 0.22 : 0.52));
+        }
+      }
+
+      ctx.putImageData(imgData, 0, 0);
+      var out = c.toDataURL('image/png');
+      try { localStorage.setItem('pf-avatar-clean-v3', out); } catch (e) {}
+      callback(out);
+    } catch (e) {
+      callback(null);
+    }
+  }
+
+  function applyProcessedSrc(finalUrl) {
     $$('[data-avatar]').forEach(function (el) {
       applyCropVars(el);
       var im = $('img', el);
-      if (im && cached && im.getAttribute('src') !== cached) {
-        im.src = cached;
+      if (!im) {
+        im = document.createElement('img');
+        el.innerHTML = '';
+        el.appendChild(im);
       }
+      im.alt = 'Imran';
+      im.decoding = 'sync';
+      im.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:var(--img-x,50%) var(--img-y,26%);transform:scale(var(--img-s,0.96)) translateY(-5%);transform-origin:var(--img-x,50%) var(--img-y,26%);display:block;background:transparent';
+      if (im.getAttribute('src') !== finalUrl) im.src = finalUrl;
     });
-    if (!cached) {
-      var probe = new Image();
-      probe.crossOrigin = 'anonymous';
-      probe.onload = function () {
-        try {
-          var maxDim = 320;
-          var scale = Math.min(1, maxDim / Math.max(probe.naturalWidth || 320, probe.naturalHeight || 320));
-          var w = Math.max(1, Math.round((probe.naturalWidth || 320) * scale));
-          var h = Math.max(1, Math.round((probe.naturalHeight || 320) * scale));
-          var c = document.createElement('canvas');
-          c.width = w; c.height = h;
-          var ctx = c.getContext('2d', { willReadFrequently: true });
-          ctx.drawImage(probe, 0, 0, w, h);
-          var imgData = ctx.getImageData(0, 0, w, h);
-          var d = imgData.data;
-          var isBlackBg = ((d[0] + d[1] + d[2]) / 3) < 14 && d[3] > 200;
-          var visited = new Uint8Array(w * h);
-          var stack = [];
-          var shoulderCutoff = Math.floor(h * (isBlackBg ? 0.78 : 0.72));
-          for (var x = 0; x < w; x++) { stack.push(x); visited[x] = 1; }
-          for (var y = 0; y < shoulderCutoff; y++) {
-            var li = y * w, ri = y * w + (w - 1);
-            if (!visited[li]) { visited[li] = 1; stack.push(li); }
-            if (!visited[ri]) { visited[ri] = 1; stack.push(ri); }
-          }
-          while (stack.length > 0) {
-            var cur = stack.pop();
-            var p = cur * 4;
-            var r = d[p], g = d[p + 1], b = d[p + 2], a = d[p + 3];
-            var isBg = a < 24 || (isBlackBg ? (r <= 8 && g <= 8 && b <= 8) : (r > 224 && g > 224 && b > 224 && Math.abs(r - g) < 22 && Math.abs(g - b) < 22));
-            if (!isBg) continue;
-            d[p + 3] = 0;
-            var cx = cur % w, cy = (cur - cx) / w;
-            if (!isBlackBg && cy > shoulderCutoff && cx > w * 0.34 && cx < w * 0.66) continue;
-            if (cx > 0 && !visited[cur - 1]) { visited[cur - 1] = 1; stack.push(cur - 1); }
-            if (cx < w - 1 && !visited[cur + 1]) { visited[cur + 1] = 1; stack.push(cur + 1); }
-            if (cy > 0 && !visited[cur - w]) { visited[cur - w] = 1; stack.push(cur - w); }
-            if (cy < h - 1 && !visited[cur + w]) { visited[cur + w] = 1; stack.push(cur + w); }
-          }
-          ctx.putImageData(imgData, 0, 0);
-          var out = c.toDataURL('image/png');
-          try { localStorage.setItem('pf-avatar-clean-v3', out); } catch (e) {}
-          var pre = new Image();
-          pre.src = out;
-          var commit = function () {
-            $$('[data-avatar] img').forEach(function (im) { im.src = out; });
-          };
-          if (pre.decode) pre.decode().then(commit, commit);
-          else pre.onload = commit;
-        } catch (e) {}
-      };
-      probe.src = CFG.photo;
+  }
+
+  function processAndRender(url, nextFallback) {
+    var probe = new Image();
+    probe.crossOrigin = 'anonymous';
+    probe.decoding = 'sync';
+    probe.onload = function () {
+      stripOuterBg(probe, function (cleanDataUrl) {
+        if (cleanDataUrl) {
+          applyProcessedSrc(cleanDataUrl);
+        } else if (nextFallback) {
+          processAndRender(nextFallback, null);
+        } else {
+          applyProcessedSrc(url);
+        }
+      });
+    };
+    probe.onerror = function () {
+      if (nextFallback) processAndRender(nextFallback, null);
+      else if (!cachedCleanPortrait) applyProcessedSrc(builtInPortrait);
+    };
+    probe.src = url;
+  }
+
+  function renderLogo(src) {
+    /* First paint: immediately show cached clean cutout OR direct fallback photo so nothing else flashes */
+    if (cachedCleanPortrait) {
+      applyProcessedSrc(cachedCleanPortrait);
+      return;
     }
-  })();
+    applyProcessedSrc(CFG.fallbackPhoto);
+    processAndRender(src || CFG.photo, CFG.fallbackPhoto);
+  }
+  renderLogo(CFG.photo);
   $('#year').textContent = new Date().getFullYear();
 
   /* Social rows */
