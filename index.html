@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>ALL IN ONE x IMRAN</title>
+<title>Premium Portfolio</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preload" href="./profile.webp" as="image" fetchpriority="high">
 <link rel="preload" href="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" as="image" crossorigin>
@@ -158,9 +158,9 @@ a { color: inherit; touch-action: manipulation; }
 .face { width: 112px; height: 112px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; border: 2px solid color-mix(in srgb, var(--accent) 65%, var(--accent-2));
   background: var(--photo-bg); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-2) 38%, transparent), 0 0 42px var(--glow-1); cursor: pointer; }
 .face svg { width: 70px; height: 70px; display: block; }
-h1.hname { margin: 0; display: inline-flex; align-items: center; justify-content: center; gap: 10px; max-width: 100%; font-family: var(--font-brand); font-weight: 400; text-transform: uppercase; letter-spacing: .08em; line-height: 1.25; font-size: clamp(1.3rem, 6.4vw, 2.2rem); }
-h1.hname .grad { min-width: 0; overflow-wrap: anywhere; }
-.badge { width: 1em; height: 1em; font-size: .9em; flex: none; }
+h1.hname { margin: 0; display: inline-flex; align-items: center; justify-content: center; gap: 6px; max-width: 100%; white-space: nowrap; font-family: var(--font-brand); font-weight: 400; text-transform: uppercase; letter-spacing: .08em; line-height: 1.25; font-size: clamp(1.12rem, 5.4vw, 2.2rem); }
+h1.hname .grad { min-width: 0; }
+.badge { width: 1em; height: 1em; font-size: 1em; flex: none; transform: translateY(0.03em); color: var(--accent); filter: drop-shadow(0 0 8px color-mix(in srgb, var(--accent) 45%, transparent)); transition: color .2s ease, filter .2s ease; }
 .greet { margin: 8px 0 0; min-height: 1.7em; font-size: 1rem; opacity: .9; }
 .caret { display: inline-block; width: 2px; height: 1.1em; vertical-align: -.18em; margin-left: 3px; background: var(--accent-2); animation: blink 1s steps(1) infinite; }
 
@@ -404,7 +404,7 @@ footer p { margin: 0; font-family: var(--font-brand); letter-spacing: .05em; fon
     <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4M11 19h2"/></symbol>
     <symbol id="i-watch" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 2h6v4H9zM9 18h6v4H9zM12 9v3l2 1"/></symbol>
     <symbol id="i-earbuds" viewBox="0 0 24 24"><path d="M7 6a3 3 0 0 1 3 3v7a1.5 1.5 0 0 1-3 0v-4a3 3 0 0 1 0-6ZM17 6a3 3 0 0 0-3 3v7a1.5 1.5 0 0 0 3 0v-4a3 3 0 0 0 0-6Z"/></symbol>
-    <symbol id="i-verified" viewBox="0 0 24 24"><path d="M12 1.5l2.4 1.6 2.9-.1 1.2 2.6 2.6 1.2-.1 2.9L22.5 12l-1.6 2.4.1 2.9-2.6 1.2-1.2 2.6-2.9-.1L12 22.5l-2.4-1.6-2.9.1-1.2-2.6-2.6-1.2.1-2.9L1.5 12l1.6-2.4-.1-2.9 2.6-1.2 1.2-2.6 2.9.1L12 1.5Z" fill="#1D9BF0" stroke="none"/><path d="m7.8 12.2 3 3 5.6-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-verified" viewBox="0 0 24 24"><path d="M12 1.5l2.4 1.6 2.9-.1 1.2 2.6 2.6 1.2-.1 2.9L22.5 12l-1.6 2.4.1 2.9-2.6 1.2-1.2 2.6-2.9-.1L12 22.5l-2.4-1.6-2.9.1-1.2-2.6-2.6-1.2.1-2.9L1.5 12l1.6-2.4-.1-2.9 2.6-1.2 1.2-2.6 2.9.1L12 1.5Z" fill="currentColor" stroke="none"/><path d="m7.8 12.2 3 3 5.6-6" fill="none" stroke="var(--on-accent, #fff)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
 
@@ -547,7 +547,11 @@ footer p { margin: 0; font-family: var(--font-brand); letter-spacing: .05em; fon
     email: 'you@example.com',
     photo: './profile.webp',
     fallbackPhoto: 'https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png',
-    greetings: ['Assalamualaikum - আসসালামু আলাইকুম', 'Welcome to my portfolio'],
+    greetings: [
+      'Assalamualaikum - আসসালামু আলাইকুম',
+      'এমন ওয়েবসাইট বানাতে যোগাযোগ করুন!',
+      'Contact me to build your dream website!'
+    ],
     channels: {
       messenger: { label: 'Messenger', color: '#0084FF', icon: '#i-messenger', title: 'Messenger', sub: '@yourusername', pill: 'Active now',
         desc: 'Chat on Messenger for quick questions and project updates.', cta: 'Message on Messenger', url: 'https://m.me/yourusername' },
@@ -977,8 +981,10 @@ footer p { margin: 0; font-family: var(--font-brand); letter-spacing: .05em; fon
   }
 
   function renderLogo(src) {
-    /* Paint cached or built-in avatar in 0ms on the very first frame so there is never an empty circle */
-    applyProcessedSrc(cachedCleanPortrait || builtInPortrait);
+    /* Show cached clean portrait immediately if available, otherwise load real photo directly without flashing placeholder art */
+    if (cachedCleanPortrait) {
+      applyProcessedSrc(cachedCleanPortrait);
+    }
     processAndRender(src || CFG.photo, CFG.fallbackPhoto);
   }
   renderLogo(CFG.photo);
