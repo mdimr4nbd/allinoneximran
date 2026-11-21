@@ -4,8 +4,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://i.ibb.co" crossorigin>
-<link rel="preload" href="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" as="image" fetchpriority="high">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Rubik+Wet+Paint&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="preload" href="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" as="image" crossorigin="anonymous" fetchpriority="high">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=block&text=ALLINONExXIMRAN%20">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=block&text=ALLINONExXIMRAN%20">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
 <style>
 /* Layout: one 600px column on a deep navy field with drifting particles. Glass top bar, hero card with ringed avatar, channel tabs with a notched detail card, social rows, a code card, footer. */
 :root {
@@ -670,99 +673,14 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Run non-critical effects after first paint so the page shows instantly */
+  var idle = function (fn) { (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 600 }) : setTimeout(fn, 80)); };
 
   /* Name, avatar, year */
   $$('[data-name]').forEach(function (el) { el.textContent = CFG.name; });
   $$('[data-short]').forEach(function (el) { el.textContent = CFG.short; });
 
   var logoUid = 0;
-  function makeLogoSvg() {
-    var gid = 'lg_' + (++logoUid);
-    var sid = 'st_' + logoUid;
-    var cid = 'cl_' + logoUid;
-    var sk = 'sk_' + logoUid;
-    var hr = 'hr_' + logoUid;
-    var sh = 'sh_' + logoUid;
-    return '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<defs>' +
-      '<linearGradient id="' + gid + '" x1="0.05" y1="0.1" x2="0.95" y2="0.9">' +
-      '<stop offset="0%" stop-color="#1D4ED8"/>' +
-      '<stop offset="48%" stop-color="#3B82F6"/>' +
-      '<stop offset="76%" stop-color="#EA580C"/>' +
-      '<stop offset="100%" stop-color="#F59E0B"/>' +
-      '</linearGradient>' +
-      '<radialGradient id="' + sh + '" cx="50%" cy="44%" r="48%">' +
-      '<stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.32"/>' +
-      '<stop offset="65%" stop-color="#FFFFFF" stop-opacity="0.06"/>' +
-      '<stop offset="100%" stop-color="#000000" stop-opacity="0.22"/>' +
-      '</radialGradient>' +
-      '<linearGradient id="' + sk + '" x1="0" y1="0" x2="0" y2="1">' +
-      '<stop offset="0%" stop-color="#F7C9AE"/>' +
-      '<stop offset="65%" stop-color="#EEB696"/>' +
-      '<stop offset="100%" stop-color="#DC9D7B"/>' +
-      '</linearGradient>' +
-      '<linearGradient id="' + sid + '" x1="0" y1="0" x2="0" y2="1">' +
-      '<stop offset="0%" stop-color="#1A2234"/>' +
-      '<stop offset="100%" stop-color="#070A12"/>' +
-      '</linearGradient>' +
-      '<linearGradient id="' + hr + '" x1="0" y1="0" x2="1" y2="1">' +
-      '<stop offset="0%" stop-color="#140E0D"/>' +
-      '<stop offset="55%" stop-color="#271C19"/>' +
-      '<stop offset="100%" stop-color="#110C0B"/>' +
-      '</linearGradient>' +
-      '<clipPath id="' + cid + '"><circle cx="60" cy="60" r="59"/></clipPath>' +
-      '</defs>' +
-      '<g clip-path="url(#' + cid + ')">' +
-      /* Vibrant blue-to-orange glowing backdrop */
-      '<circle cx="60" cy="60" r="60" fill="url(#' + gid + ')"/>' +
-      '<circle cx="60" cy="60" r="60" fill="url(#' + sh + ')"/>' +
-      /* Tailored black blazer & lapels */
-      '<path d="M13 122 C17 94, 34 86, 60 86 C86 86, 103 94, 107 122 Z" fill="url(#' + sid + ')"/>' +
-      '<path d="M44 86 L55 118 L43 105 L46 98 L40 95 Z" fill="#111827"/>' +
-      '<path d="M76 86 L65 118 L77 105 L74 98 L80 95 Z" fill="#111827"/>' +
-      /* Crisp white dress shirt & collar */
-      '<path d="M46 84 L60 116 L74 84 L67 80 L60 91 L53 80 Z" fill="#FFFFFF"/>' +
-      '<path d="M48 83 L60 96 L52 98 Z" fill="#E2E8F0"/>' +
-      '<path d="M72 83 L60 96 L68 98 Z" fill="#E2E8F0"/>' +
-      /* Deep navy silk tie */
-      '<path d="M56.8 91 L63.2 91 L62 96.5 L58 96.5 Z" fill="#1E3A8A"/>' +
-      '<path d="M58 96.5 L62 96.5 L64.5 117 L60 121 L55.5 117 Z" fill="#172554"/>' +
-      '<path d="M59.2 97 L60.8 97 L61.5 115 L60 118 L58.5 115 Z" fill="#2563EB" opacity="0.45"/>' +
-      /* Neck & jawline shadow */
-      '<path d="M50.5 69 L50.5 86 Q60 92 69.5 86 L69.5 69 Z" fill="#E3AA8B"/>' +
-      '<path d="M50.5 72 Q60 81 69.5 72 L69.5 77.5 Q60 85 50.5 77.5 Z" fill="#C48768" opacity="0.6"/>' +
-      /* Ears */
-      '<ellipse cx="40.2" cy="53.5" rx="3.3" ry="6.2" fill="#E6AE8F"/>' +
-      '<ellipse cx="79.8" cy="53.5" rx="3.3" ry="6.2" fill="#E6AE8F"/>' +
-      /* Face shape */
-      '<path d="M41.5 43.5 C41.5 29.5, 78.5 29.5, 78.5 43.5 C78.5 59.5, 72 73.5, 60 75.5 C48 73.5, 41.5 59.5, 41.5 43.5 Z" fill="url(#' + sk + ')"/>' +
-      /* Cheek & nose shading */
-      '<ellipse cx="48" cy="57" rx="4.5" ry="3" fill="#E09A7B" opacity="0.24"/>' +
-      '<ellipse cx="72" cy="57" rx="4.5" ry="3" fill="#E09A7B" opacity="0.24"/>' +
-      /* Eyebrows */
-      '<path d="M45.5 45.5 Q51.5 43.2 56.8 45.4" fill="none" stroke="#1E1412" stroke-width="2.1" stroke-linecap="round"/>' +
-      '<path d="M63.2 45.4 Q68.5 43.2 74.5 45.5" fill="none" stroke="#1E1412" stroke-width="2.1" stroke-linecap="round"/>' +
-      /* Expressive eyes */
-      '<ellipse cx="51.4" cy="50.2" rx="3.4" ry="2.1" fill="#FFFFFF"/>' +
-      '<circle cx="51.4" cy="50.2" r="1.75" fill="#1C1210"/>' +
-      '<circle cx="52.1" cy="49.6" r="0.58" fill="#FFFFFF"/>' +
-      '<path d="M48 49.6 Q51.4 47.6 54.8 49.6" fill="none" stroke="#2A1C18" stroke-width="0.9" stroke-linecap="round"/>' +
-      '<ellipse cx="68.6" cy="50.2" rx="3.4" ry="2.1" fill="#FFFFFF"/>' +
-      '<circle cx="68.6" cy="50.2" r="1.75" fill="#1C1210"/>' +
-      '<circle cx="69.3" cy="49.6" r="0.58" fill="#FFFFFF"/>' +
-      '<path d="M65.2 49.6 Q68.6 47.6 72 49.6" fill="none" stroke="#2A1C18" stroke-width="0.9" stroke-linecap="round"/>' +
-      /* Nose, light mustache, lips & chin */
-      '<path d="M60 49.5 L58.6 58 Q60 59.6 61.8 58" fill="none" stroke="#C5896B" stroke-width="1.45" stroke-linecap="round"/>' +
-      '<path d="M54.2 62.6 Q60 61.3 65.8 62.6" fill="none" stroke="#3E2B24" stroke-width="1.25" stroke-linecap="round" opacity="0.52"/>' +
-      '<path d="M54.4 65.6 Q60 68.2 65.6 65.6" fill="none" stroke="#C07464" stroke-width="2.2" stroke-linecap="round"/>' +
-      '<path d="M55.2 65.5 Q60 66.3 64.8 65.5" fill="none" stroke="#8C4A3E" stroke-width="0.8" stroke-linecap="round" opacity="0.55"/>' +
-      '<path d="M57.4 70.6 Q60 71.7 62.6 70.6" fill="none" stroke="#3E2B24" stroke-width="1.3" stroke-linecap="round" opacity="0.42"/>' +
-      /* Modern side-swept hair */
-      '<path d="M40.2 46.5 C38.5 30, 46.8 20, 61 20 C73.5 20, 81.5 28.5, 79.8 46.5 C78.6 38.5, 75 34.5, 69.2 33.5 C61.5 35.8, 51 34.5, 43.8 38.8 C41.8 40.8, 40.8 43.8, 40.2 46.5 Z" fill="url(#' + hr + ')"/>' +
-      '<path d="M44.5 34.5 C52 26.2, 67.5 25.5, 75.5 32.5 C68 30.2, 54.5 30.5, 44.5 34.5 Z" fill="#3D2E29" opacity="0.6"/>' +
-      '</g>' +
-      '</svg>';
-  }
 
   var cropState = { x: 50, y: 26, s: 0.96 };
 
@@ -913,13 +831,17 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
       applyProcessedSrc(cachedCleanPortrait);
       return;
     }
-    /* Process background removal immediately before revealing so neither dummy art nor white background ever flashes */
     processAndRender(primaryUrl);
   }
   renderLogo(CFG.photo);
   $('#year').textContent = new Date().getFullYear();
 
-  /* Social rows (skip rebuilding if already pre-rendered in HTML) */
+  try {
+    if (document.fonts && document.fonts.load) {
+      document.fonts.load('400 36px "Rubik Wet Paint"', CFG.name);
+    }
+  } catch (e) {}
+
   var sBox = $('#socials');
   if (sBox && !sBox.children.length) {
     CFG.socials.forEach(function (s) {
@@ -934,7 +856,6 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
     });
   }
 
-  /* Rotating rings: GPU-accelerated CSS rotation */
   var NS = 'http://www.w3.org/2000/svg';
   function mk(tag, attrs) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
   function addFx(ring, orbit) {
@@ -948,7 +869,7 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
       ring.insertBefore(ob, ring.firstChild);
     }
   }
-  $$('.ring').forEach(function (r) { addFx(r, !!r.closest('.lrow')); });
+  idle(function () { $$('.ring').forEach(function (r) { addFx(r, !!r.closest('.lrow')); }); });
   var av = $('.avatar');
   if (av) {
     var hid = 'hg_' + (++logoUid);
@@ -963,11 +884,9 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
     av.insertBefore(hs, av.firstChild);
   }
 
-  /* Toast */
   var toastEl = $('#toast'), toastT;
   function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('show'); }, 2200); }
 
-  /* Lightweight Particles */
   var cv = $('#fx'), cx = cv.getContext('2d'), W = 0, H = 0, ps = [], cols = ['#5B8DFF', '#FF8F4F'];
   function fxColors() { var cs = getComputedStyle(root); cols = [cs.getPropertyValue('--accent').trim() || cols[0], cs.getPropertyValue('--accent-2').trim() || cols[1]]; if (reduce) fxDraw(); }
   function fxSize() { W = window.innerWidth; H = window.innerHeight; cv.width = W; cv.height = H; }
@@ -986,12 +905,14 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
     }
     requestAnimationFrame(fxStep);
   }
-  fxSize(); fxInit(); fxColors();
+  var active = null, lastFocus = null;
   window.addEventListener('resize', function () { fxSize(); fxInit(); if (reduce) fxDraw(); }, { passive: true });
-  if (reduce) fxDraw(); else requestAnimationFrame(fxStep);
+  idle(function () {
+    fxSize(); fxInit(); fxColors();
+    if (reduce) fxDraw(); else requestAnimationFrame(fxStep);
+  });
 
-  /* Custom Cursor */
-  (function () {
+  idle(function () {
     var dot = $('#cDot'), ring = $('#cRing');
     if (!dot || !ring || reduce || !window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     var tx = -100, ty = -100, rx = -100, ry = -100, vis = false, raf = false;
@@ -1014,9 +935,8 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
     document.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse') ring.classList.add('down'); }, { passive: true });
     document.addEventListener('pointerup', function (e) { if (e.pointerType === 'mouse') ring.classList.remove('down'); }, { passive: true });
     document.addEventListener('mouseleave', function () { vis = false; dot.style.opacity = '0'; ring.style.opacity = '0'; }, { passive: true });
-  })();
+  });
 
-  /* Theme */
   var themeUse = $('use', $('#themeIco'));
   function isLight() { var a = root.getAttribute('data-theme'); if (a) return a === 'light'; return window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches; }
   function syncTheme() { themeUse.setAttribute('href', isLight() ? '#i-moon' : '#i-sun'); fxColors(); }
@@ -1030,8 +950,6 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
   }
   $('#themeBtn').addEventListener('click', toggleTheme);
 
-  /* Overlays */
-  var active = null, lastFocus = null, FOCUSABLE = 'a[href],button:not([disabled]),input,textarea,[tabindex]:not([tabindex="-1"])';
   var bgSections = $$('.topbar, .page, footer');
   function setBgLocked(locked) {
     for (var i = 0; i < bgSections.length; i++) {
@@ -1076,7 +994,6 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
     });
   });
 
-  /* Design picker */
   function setDesign(d) {
     if (d === 'sunset') d = 'emerald';
     if (!d || d === 'cosmic') root.removeAttribute('data-design');
@@ -1099,7 +1016,6 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
     });
   });
 
-  /* Channel tabs and detail card - Restored smooth tab emergence popup */
   var ccard = $('#ccard'), chan = 'whatsapp';
   var cIcon = $('#cIcon'), cIcoWrap = $('#cIcoWrap'), cTitle = $('#cTitle'), cSub = $('#cSub'), cPill = $('#cPill'), cDesc = $('#cDesc'), cCtaTxt = $('#cCtaTxt'), cCta = $('#cCta');
   var tabEls = $$('.tab');
@@ -1150,7 +1066,6 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
   }
   setChan('whatsapp');
 
-  /* Free Fire Top-Up Page Logic */
   (function () {
     var selectedPkg = '115 Diamond', selectedPrice = '৳85';
     var dmCards = $$('.dm-card'), pkgLbl = $('#selectedPkgLabel'), uidInput = $('#ffUidInput');
@@ -1187,7 +1102,6 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
     }
   })();
 
-  /* Live code box */
   (function () {
     var box = $('#codeBox'); if (!box) return;
     var codeCard = box.closest('.code'), codeVisible = true;
@@ -1246,7 +1160,6 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
     setInterval(tick, 1000);
   })();
 
-  /* Typing greeting */
   function graphemes(t) {
     try { if (window.Intl && Intl.Segmenter) return Array.from(new Intl.Segmenter('bn', { granularity: 'grapheme' }).segment(t), function (x) { return x.segment; }); } catch (e) {}
     return Array.from(t);
