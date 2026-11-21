@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Premium Portfolio</title>
+<title>ALL IN ONE xIMRAN</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -328,26 +328,6 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-/* Instant Page Preloader */
-#preloader {
-  position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center;
-  background: var(--bg);
-  transition: opacity .26s ease, visibility .26s ease;
-}
-#preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
-.pl-box { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; padding: 20px; }
-.pl-ring {
-  width: 54px; height: 54px; border-radius: 50%; position: relative; display: grid; place-items: center;
-  border: 2.5px solid color-mix(in srgb, var(--accent) 22%, transparent);
-  border-top-color: var(--accent); border-right-color: var(--accent-2);
-  animation: spin .75s linear infinite;
-}
-.pl-dot { width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 16px var(--accent); }
-.pl-title { font-family: var(--font-brand); font-size: 1.05rem; letter-spacing: .08em; text-transform: uppercase; }
-.pl-bar { width: 140px; height: 3px; border-radius: 999px; background: var(--surface-hover); overflow: hidden; }
-.pl-bar i { display: block; height: 100%; width: 45%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); animation: plslide .85s ease-in-out infinite alternate; }
-@keyframes plslide { from { transform: translateX(-20%); } to { transform: translateX(145%); } }
-
 /* Free Fire Top-Up Page Modal */
 .topup-panel { max-width: 440px; padding: 16px; }
 .topup-panel .p-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
@@ -440,14 +420,6 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
 @keyframes live { 0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, .6); } 70%, 100% { box-shadow: 0 0 0 9px rgba(52, 211, 153, 0); } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
 </style>
-
-<div id="preloader" aria-hidden="true">
-  <div class="pl-box">
-    <div class="pl-ring"><span class="pl-dot"></span></div>
-    <div class="pl-title grad">ALL IN ONE x IMRAN</div>
-    <div class="pl-bar"><i></i></div>
-  </div>
-</div>
 
 <canvas id="fx" aria-hidden="true"></canvas>
 <div class="glow" aria-hidden="true"></div>
@@ -1107,37 +1079,18 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
     var primaryUrl = src || CFG.photo;
     if (cachedCleanPortrait) {
       applyProcessedSrc(cachedCleanPortrait);
-      hidePreloader();
       return;
     }
     /* Keep instant 0ms inline SVG portrait visible until the real photo finishes downloading */
     var rawLoader = new Image();
     rawLoader.onload = function () {
       applyProcessedSrc(primaryUrl);
-      hidePreloader();
       var runCutout = function () { processAndRender(primaryUrl); };
       if ('requestIdleCallback' in window) requestIdleCallback(runCutout, { timeout: 500 });
       else setTimeout(runCutout, 50);
     };
-    rawLoader.onerror = function () {
-      hidePreloader();
-    };
     rawLoader.src = primaryUrl;
   }
-  var preloaderHidden = false;
-  function hidePreloader() {
-    if (preloaderHidden) return;
-    preloaderHidden = true;
-    var pl = $('#preloader');
-    if (pl) {
-      pl.classList.add('done');
-      setTimeout(function () { if (pl && pl.parentNode) pl.parentNode.removeChild(pl); }, 320);
-    }
-  }
-  /* Failsafe so slow networks never hold the main page longer than 650ms */
-  setTimeout(hidePreloader, 650);
-  if (document.readyState === 'complete') requestAnimationFrame(hidePreloader);
-  else window.addEventListener('load', function () { requestAnimationFrame(hidePreloader); }, { once: true });
   renderLogo(CFG.photo);
   $('#year').textContent = new Date().getFullYear();
 
