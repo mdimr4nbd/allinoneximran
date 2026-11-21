@@ -1,12 +1,13 @@
-<!doctype html><html data-design="emerald"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:16px "Outfit","Hind Siliguri",system-ui,-apple-system,sans-serif;background:#06100D;color:#EEF2FA}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<!doctype html><html data-design="emerald"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:16px "Outfit","Hind Siliguri",system-ui,-apple-system,sans-serif;background:#06100D;color:#EEF2FA}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}html.wf-wait .brand .name,html.wf-wait h1.hname,html.wf-wait .greet,html.wf-wait .tab,html.wf-wait .ccard,html.wf-wait .col-right,html.wf-wait .code,html.wf-wait .gear-sec,html.wf-wait footer{opacity:0}html.wf-ready .brand .name,html.wf-ready h1.hname,html.wf-ready .greet,html.wf-ready .tab,html.wf-ready .ccard,html.wf-ready .col-right,html.wf-ready .code,html.wf-ready .gear-sec,html.wf-ready footer{opacity:1;transition:opacity .08s ease-out}</style>
 <title>ALL IN ONE x IMRAN</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://i.ibb.co" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=block" as="style" crossorigin>
 <link rel="preload" href="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" as="image" fetchpriority="high">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" fetchpriority="high">
-<script>try{var t=localStorage.getItem('pf-theme');if(t)document.documentElement.setAttribute('data-theme',t);var d=localStorage.getItem('pf-design2');if(d==='cosmic')document.documentElement.removeAttribute('data-design');else if(d&&d!=='sunset')document.documentElement.setAttribute('data-design',d);}catch(e){}</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=block" crossorigin fetchpriority="high">
+<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem('pf-theme');if(t)r.setAttribute('data-theme',t);var d=localStorage.getItem('pf-design2');if(d==='cosmic')r.removeAttribute('data-design');else if(d&&d!=='sunset')r.setAttribute('data-design',d);}catch(e){}r.classList.add('wf-wait');var done=false;function show(){if(done)return;done=true;r.classList.remove('wf-wait');r.classList.add('wf-ready');}setTimeout(show,180);if(document.fonts&&document.fonts.ready){document.fonts.ready.then(show);}else{show();}})();</script>
 <style>
 /* Layout: one 600px column on a deep navy field with drifting particles. Glass top bar, hero card with ringed avatar, channel tabs with a notched detail card, social rows, a code card, footer. */
 :root {
@@ -848,12 +849,17 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
   /* Warm up all fonts silently in background */
   try {
     if (document.fonts && document.fonts.load) {
-      document.fonts.load('400 36px "Rubik Wet Paint"', CFG.name);
-      document.fonts.load('400 16px "Outfit"');
-      document.fonts.load('600 16px "Outfit"');
-      document.fonts.load('700 16px "Outfit"');
-      document.fonts.load('400 16px "Hind Siliguri"');
-      document.fonts.load('400 14px "JetBrains Mono"');
+      Promise.all([
+        document.fonts.load('400 36px "Rubik Wet Paint"', CFG.name),
+        document.fonts.load('400 16px "Outfit"'),
+        document.fonts.load('600 16px "Outfit"'),
+        document.fonts.load('700 16px "Outfit"'),
+        document.fonts.load('400 16px "Hind Siliguri"'),
+        document.fonts.load('400 14px "JetBrains Mono"')
+      ]).then(function () {
+        document.documentElement.classList.remove('wf-wait');
+        document.documentElement.classList.add('wf-ready');
+      });
     }
   } catch (e) {}
 
