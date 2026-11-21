@@ -135,7 +135,7 @@ a { color: inherit; touch-action: manipulation; }
 .mini { width: 30px; height: 30px; border-radius: 50%; padding: 1.5px; flex: none; background: conic-gradient(var(--accent), var(--accent-2), var(--accent)); display: grid; place-items: center; cursor: pointer; }
 .mini span { width: 100%; height: 100%; border-radius: 50%; background: var(--photo-bg); display: grid; place-items: center; overflow: hidden; position: relative; -webkit-mask-image: -webkit-radial-gradient(white, black); mask-image: radial-gradient(white, black); }
 .mini svg { width: 18px; height: 18px; display: block; }
-.mini img, .face img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--img-x, 50%) var(--img-y, 26%); -webkit-transform: scale(var(--img-s, 0.96)) translate3d(0, -5%, 0); transform: scale(var(--img-s, 0.96)) translate3d(0, -5%, 0); -webkit-transform-origin: var(--img-x, 50%) var(--img-y, 26%); transform-origin: var(--img-x, 50%) var(--img-y, 26%); background: transparent; opacity: 1; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 75%, transparent)) drop-shadow(0 0 14px color-mix(in srgb, var(--accent-2) 55%, transparent)); }
+.mini img, .face img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--img-x, 50%) var(--img-y, 26%); -webkit-transform: scale(var(--img-s, 0.96)) translate3d(0, -5%, 0); transform: scale(var(--img-s, 0.96)) translate3d(0, -5%, 0); -webkit-transform-origin: var(--img-x, 50%) var(--img-y, 26%); transform-origin: var(--img-x, 50%) var(--img-y, 26%); background: transparent; opacity: 0; transition: opacity .14s ease-out; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 75%, transparent)) drop-shadow(0 0 14px color-mix(in srgb, var(--accent-2) 55%, transparent)); }
 .mini img.ready, .face img.ready { opacity: 1; }
 .face { position: relative; }
 .actions { display: flex; align-items: center; gap: 8px; }
@@ -458,7 +458,7 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
 <header class="topbar">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Home">
-      <span class="mini"><span data-avatar><img class="ready" src="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" alt="Imran" fetchpriority="high" decoding="sync"></span></span>
+      <span class="mini"><span data-avatar><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Imran"></span></span>
       <span class="name grad" data-name>ALL IN ONE x IMRAN</span>
     </a>
     <div class="actions">
@@ -471,7 +471,7 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
 <main class="page wrap" id="top">
   <div class="col-left">
     <section class="hero" aria-label="Profile">
-      <div class="avatar"><div class="face" data-avatar><img class="ready" src="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" alt="Imran" fetchpriority="high" decoding="sync"></div></div>
+      <div class="avatar"><div class="face" data-avatar><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Imran"></div></div>
       <h1 class="hname"><span class="grad" data-name>ALL IN ONE x IMRAN</span><svg class="badge" aria-label="Verified" role="img"><use href="#i-verified"/></svg></h1>
       <p class="greet"><span id="typed">Assalamualaikum - আসসালামু আলাইকুম</span><i class="caret" aria-hidden="true"></i></p>
     </section>
@@ -828,20 +828,8 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
       applyProcessedSrc(cachedCleanPortrait);
       return Promise.resolve();
     }
-    /* Show the high-priority preloaded portrait immediately on first paint, then clean background asynchronously */
-    applyProcessedSrc(primaryUrl);
-    var runBgStrip = function () {
-      var probe = new Image();
-      if (/^https?:\/\//i.test(primaryUrl)) probe.crossOrigin = 'anonymous';
-      probe.onload = function () {
-        stripOuterBg(probe, function (cleanDataUrl) {
-          if (cleanDataUrl) applyProcessedSrc(cleanDataUrl);
-        });
-      };
-      probe.src = primaryUrl;
-    };
-    if ('requestIdleCallback' in window) requestIdleCallback(runBgStrip, { timeout: 600 });
-    else setTimeout(runBgStrip, 80);
+    /* Strip white background before revealing the avatar so white background never flashes */
+    processAndRender(primaryUrl);
     return Promise.resolve();
   }
   var logoReadyP = renderLogo(CFG.photo);
