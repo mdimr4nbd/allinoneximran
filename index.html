@@ -5,10 +5,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://i.ibb.co" crossorigin>
 <link rel="preload" href="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" as="image" fetchpriority="high">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Outfit:wght@400;600;700&family=Hind+Siliguri:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" fetchpriority="high">
-<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem('pf-theme');if(t)r.setAttribute('data-theme',t);var d=localStorage.getItem('pf-design2');if(d==='cosmic')r.removeAttribute('data-design');else if(d&&d!=='sunset')r.setAttribute('data-design',d);}catch(e){}})();</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&text=ALL%20IN%20ONE%20x%20IMRAN&display=block" fetchpriority="high">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Hind+Siliguri:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<script>(function(){var r=document.documentElement;r.classList.add('font-wait');try{var t=localStorage.getItem('pf-theme');if(t)r.setAttribute('data-theme',t);var d=localStorage.getItem('pf-design2');if(d==='cosmic')r.removeAttribute('data-design');else if(d&&d!=='sunset')r.setAttribute('data-design',d);}catch(e){}function done(){r.classList.remove('font-wait');}if(document.fonts&&document.fonts.load){document.fonts.load('400 1em "Rubik Wet Paint"').then(done,done);setTimeout(done,180);}else{done();}})();</script>
 <style>
 /* Layout: one 600px column on a deep navy field with drifting particles. Glass top bar, hero card with ringed avatar, channel tabs with a notched detail card, social rows, a code card, footer. */
+html.font-wait [data-name], html.font-wait [data-short] { opacity: 0; }
+[data-name], [data-short] { transition: opacity .08s ease-out; }
 :root {
   --font-body: "Outfit", "Hind Siliguri", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-brand: "Rubik Wet Paint", Impact, system-ui, sans-serif;
