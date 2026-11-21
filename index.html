@@ -17,7 +17,7 @@
   src: local("Rubik Wet Paint"), url("https://fonts.gstatic.com/s/rubikwetpaint/v2/HTx0L20u698026853714153647.woff2") format("woff2");
 }
 </style>
-<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem('pf-theme');if(t)r.setAttribute('data-theme',t);var d=localStorage.getItem('pf-design2');if(d==='cosmic')r.removeAttribute('data-design');else if(d&&d!=='sunset')r.setAttribute('data-design',d);}catch(e){}})();</script>
+<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem('pf-theme');if(t)r.setAttribute('data-theme',t);var d=localStorage.getItem('pf-design2');if(d==='cosmic')r.removeAttribute('data-design');else if(d&&d!=='sunset')r.setAttribute('data-design',d);if(localStorage.getItem('pf-avatar-clean-v5'))r.setAttribute('data-avatar-cached','1');}catch(e){}})();</script>
 <style>
 /* Layout: one 600px column on a deep navy field with drifting particles. Glass top bar, hero card with ringed avatar, channel tabs with a notched detail card, social rows, a code card, footer. */
 :root {
@@ -144,10 +144,10 @@ a { color: inherit; touch-action: manipulation; }
 .mini { width: 30px; height: 30px; border-radius: 50%; padding: 1.5px; flex: none; background: conic-gradient(var(--accent), var(--accent-2), var(--accent)); display: grid; place-items: center; cursor: pointer; }
 .mini span { width: 100%; height: 100%; border-radius: 50%; background: var(--photo-bg); display: grid; place-items: center; overflow: hidden; position: relative; -webkit-mask-image: -webkit-radial-gradient(white, black); mask-image: radial-gradient(white, black); }
 .mini svg { width: 18px; height: 18px; display: block; }
-.mini img, .face img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--img-x, 50%) var(--img-y, 26%); -webkit-transform: scale(var(--img-s, 0.96)) translate3d(0, -5%, 0); transform: scale(var(--img-s, 0.96)) translate3d(0, -5%, 0); -webkit-transform-origin: var(--img-x, 50%) var(--img-y, 26%); transform-origin: var(--img-x, 50%) var(--img-y, 26%); background: transparent; opacity: 1; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 75%, transparent)) drop-shadow(0 0 14px color-mix(in srgb, var(--accent-2) 55%, transparent)); }
-.mini img.raw-blend, .face img.raw-blend { mix-blend-mode: darken; }
-:root:not([data-theme="light"]) .mini img.raw-blend,
-:root:not([data-theme="light"]) .face img.raw-blend { mix-blend-mode: normal; -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 50%, rgba(0, 0, 0, .75) 65%, transparent 82%); mask-image: radial-gradient(circle at 50% 42%, #000 50%, rgba(0, 0, 0, .75) 65%, transparent 82%); }
+.mini img, .face img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--img-x, 50%) var(--img-y, 26%); -webkit-transform: scale(var(--img-s, 0.96)) translate3d(0, -5%, 0); transform: scale(var(--img-s, 0.96)) translate3d(0, -5%, 0); -webkit-transform-origin: var(--img-x, 50%) var(--img-y, 26%); transform-origin: var(--img-x, 50%) var(--img-y, 26%); background: transparent; opacity: 0; transition: opacity .16s ease-out; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 75%, transparent)) drop-shadow(0 0 14px color-mix(in srgb, var(--accent-2) 55%, transparent)); }
+.mini img.ready, .face img.ready { opacity: 1; }
+:root[data-avatar-cached="1"] .mini img,
+:root[data-avatar-cached="1"] .face img { opacity: 1; transition: none; }
 .face { position: relative; }
 .actions { display: flex; align-items: center; gap: 8px; }
 .icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; cursor: pointer; transition: background .12s, border-color .12s, transform .1s; flex: none; }
@@ -471,7 +471,7 @@ footer [data-short] { font-family: var(--font-brand); font-weight: 400; letter-s
 <header class="topbar">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Home">
-      <span class="mini"><span data-avatar><img class="raw-blend" src="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" alt="Imran" fetchpriority="high" decoding="sync"></span></span>
+      <span class="mini"><span data-avatar><img alt="Imran" fetchpriority="high" decoding="sync"></span></span>
       <span class="name grad" data-name>ALL IN ONE x IMRAN</span>
     </a>
     <div class="actions">
@@ -484,7 +484,7 @@ footer [data-short] { font-family: var(--font-brand); font-weight: 400; letter-s
 <main class="page wrap" id="top">
   <div class="col-left">
     <section class="hero" aria-label="Profile">
-      <div class="avatar"><div class="face" data-avatar><img class="raw-blend" src="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" alt="Imran" fetchpriority="high" decoding="sync"></div></div>
+      <div class="avatar"><div class="face" data-avatar><img alt="Imran" fetchpriority="high" decoding="sync"></div></div>
       <h1 class="hname"><span class="grad" data-name>ALL IN ONE x IMRAN</span><svg class="badge" aria-label="Verified" role="img"><use href="#i-verified"/></svg></h1>
       <p class="greet"><span id="typed">Assalamualaikum - আসসালামু আলাইকুম</span><i class="caret" aria-hidden="true"></i></p>
     </section>
@@ -709,6 +709,30 @@ footer [data-short] { font-family: var(--font-brand); font-weight: 400; letter-s
     cachedCleanPortrait = localStorage.getItem(CACHE_KEY);
   } catch (e) {}
 
+  function applyProcessedSrc(finalUrl) {
+    if (!finalUrl) return;
+    $$('[data-avatar]').forEach(function (el) {
+      applyCropVars(el);
+      var im = $('img', el);
+      if (!im) {
+        im = document.createElement('img');
+        el.innerHTML = '';
+        el.appendChild(im);
+      }
+      im.alt = 'Imran';
+      im.loading = 'eager';
+      im.removeAttribute('decoding');
+      im.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:var(--img-x,50%) var(--img-y,26%);-webkit-transform:scale(var(--img-s,0.96)) translate3d(0,-5%,0);transform:scale(var(--img-s,0.96)) translate3d(0,-5%,0);-webkit-transform-origin:var(--img-x,50%) var(--img-y,26%);transform-origin:var(--img-x,50%) var(--img-y,26%);display:block;background:transparent';
+      if (im.getAttribute('src') !== finalUrl) im.src = finalUrl;
+      im.classList.add('ready');
+    });
+    markLogoReady();
+  }
+
+  if (cachedCleanPortrait) {
+    applyProcessedSrc(cachedCleanPortrait);
+  }
+
   function stripOuterBg(imgEl, callback) {
     try {
       var maxDim = 280;
@@ -792,32 +816,14 @@ footer [data-short] { font-family: var(--font-brand); font-weight: 400; letter-s
 
       ctx.putImageData(imgData, 0, 0);
       var out = c.toDataURL('image/png');
-      try { localStorage.setItem(CACHE_KEY, out); } catch (e) {}
+      try {
+        localStorage.setItem(CACHE_KEY, out);
+        root.setAttribute('data-avatar-cached', '1');
+      } catch (e) {}
       callback(out);
     } catch (e) {
       callback(null);
     }
-  }
-
-  function applyProcessedSrc(finalUrl, isRawFallback) {
-    if (!finalUrl) return;
-    $$('[data-avatar]').forEach(function (el) {
-      applyCropVars(el);
-      var im = $('img', el);
-      if (!im) {
-        im = document.createElement('img');
-        el.innerHTML = '';
-        el.appendChild(im);
-      }
-      im.alt = 'Imran';
-      im.loading = 'eager';
-      im.removeAttribute('decoding');
-      im.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:var(--img-x,50%) var(--img-y,26%);-webkit-transform:scale(var(--img-s,0.96)) translate3d(0,-5%,0);transform:scale(var(--img-s,0.96)) translate3d(0,-5%,0);-webkit-transform-origin:var(--img-x,50%) var(--img-y,26%);transform-origin:var(--img-x,50%) var(--img-y,26%);display:block;background:transparent';
-      im.classList.toggle('raw-blend', !!isRawFallback);
-      if (im.getAttribute('src') !== finalUrl) im.src = finalUrl;
-      im.classList.add('ready');
-    });
-    markLogoReady();
   }
 
   function applySvgFallback() {
@@ -829,38 +835,22 @@ footer [data-short] { font-family: var(--font-brand); font-weight: 400; letter-s
 
   function processAndRender(url) {
     if (!url) { applySvgFallback(); return; }
-    var settledClean = false;
-    var rawLoaded = false;
-
-    /* Immediately display the preloaded image with edge-mask/blend so there is zero delay or white box */
-    applyProcessedSrc(url, true);
-
-    /* Parallel standard image preload (immune to iOS Chrome / WKWebView CORS blocks) */
-    var directProbe = new Image();
-    directProbe.onload = function () {
-      rawLoaded = true;
-      if (!settledClean) applyProcessedSrc(url, true);
-    };
-    directProbe.onerror = function () {
-      if (!settledClean && !rawLoaded) applySvgFallback();
-    };
-    directProbe.src = url;
-
-    /* Parallel CORS probe for canvas pixel background removal */
     var corsProbe = new Image();
     if (/^https?:\/\//i.test(url)) corsProbe.crossOrigin = 'anonymous';
     corsProbe.onload = function () {
       stripOuterBg(corsProbe, function (cleanDataUrl) {
         if (cleanDataUrl) {
-          settledClean = true;
-          applyProcessedSrc(cleanDataUrl, false);
-        } else if (rawLoaded) {
-          applyProcessedSrc(url, true);
+          applyProcessedSrc(cleanDataUrl);
+        } else {
+          applyProcessedSrc(url);
         }
       });
     };
     corsProbe.onerror = function () {
-      if (rawLoaded && !settledClean) applyProcessedSrc(url, true);
+      var fallbackProbe = new Image();
+      fallbackProbe.onload = function () { applyProcessedSrc(url); };
+      fallbackProbe.onerror = function () { applySvgFallback(); };
+      fallbackProbe.src = url;
     };
     corsProbe.src = url;
   }
@@ -868,7 +858,6 @@ footer [data-short] { font-family: var(--font-brand); font-weight: 400; letter-s
   function renderLogo(src) {
     var primaryUrl = src || CFG.photo;
     if (cachedCleanPortrait) {
-      applyProcessedSrc(cachedCleanPortrait, false);
       return Promise.resolve();
     }
     processAndRender(primaryUrl);
