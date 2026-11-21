@@ -6,10 +6,8 @@
 <link rel="preconnect" href="https://i.ibb.co" crossorigin>
 <link rel="preload" href="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" as="image" fetchpriority="high">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" fetchpriority="high">
-<script>document.documentElement.classList.add('booting');try{var t=localStorage.getItem('pf-theme');if(t)document.documentElement.setAttribute('data-theme',t);var d=localStorage.getItem('pf-design2');if(d==='cosmic')document.documentElement.removeAttribute('data-design');else if(d&&d!=='sunset')document.documentElement.setAttribute('data-design',d);}catch(e){}</script>
+<script>try{var t=localStorage.getItem('pf-theme');if(t)document.documentElement.setAttribute('data-theme',t);var d=localStorage.getItem('pf-design2');if(d==='cosmic')document.documentElement.removeAttribute('data-design');else if(d&&d!=='sunset')document.documentElement.setAttribute('data-design',d);}catch(e){}</script>
 <style>
-html.booting body > *:not(#fx):not(.glow) { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
-html.ready body > .topbar, html.ready body > .page, html.ready body > footer { opacity: 1; visibility: visible; transition: opacity .16s ease-out; }
 /* Layout: one 600px column on a deep navy field with drifting particles. Glass top bar, hero card with ringed avatar, channel tabs with a notched detail card, social rows, a code card, footer. */
 :root {
   --font-body: "Outfit", "Hind Siliguri", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -669,13 +667,6 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
   var ORDER = ['messenger', 'whatsapp', 'telegram'];
 
   var root = document.documentElement;
-  var revealed = false;
-  function revealPage() {
-    if (revealed) return;
-    revealed = true;
-    root.classList.remove('booting');
-    root.classList.add('ready');
-  }
   function markLogoReady() {}
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -854,23 +845,17 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
   var logoReadyP = renderLogo(CFG.photo);
   $('#year').textContent = new Date().getFullYear();
 
-  /* Warm up all fonts immediately and reveal only once fonts & avatar are ready */
-  var fontLoads = [];
+  /* Warm up all fonts silently in background */
   try {
     if (document.fonts && document.fonts.load) {
-      fontLoads.push(document.fonts.load('400 36px "Rubik Wet Paint"', CFG.name));
-      fontLoads.push(document.fonts.load('400 16px "Outfit"'));
-      fontLoads.push(document.fonts.load('600 16px "Outfit"'));
-      fontLoads.push(document.fonts.load('700 16px "Outfit"'));
-      fontLoads.push(document.fonts.load('400 16px "Hind Siliguri"'));
-      fontLoads.push(document.fonts.load('400 14px "JetBrains Mono"'));
-      fontLoads.push(document.fonts.ready);
+      document.fonts.load('400 36px "Rubik Wet Paint"', CFG.name);
+      document.fonts.load('400 16px "Outfit"');
+      document.fonts.load('600 16px "Outfit"');
+      document.fonts.load('700 16px "Outfit"');
+      document.fonts.load('400 16px "Hind Siliguri"');
+      document.fonts.load('400 14px "JetBrains Mono"');
     }
   } catch (e) {}
-  Promise.all([logoReadyP, Promise.all(fontLoads)]).then(function () {
-    requestAnimationFrame(revealPage);
-  });
-  setTimeout(revealPage, 450);
 
   /* Social rows (skip rebuilding if already pre-rendered in HTML) */
   var sBox = $('#socials');
