@@ -5,14 +5,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://i.ibb.co" crossorigin>
 <link rel="preload" href="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" as="image" fetchpriority="high">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap" fetchpriority="high">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=block" fetchpriority="high">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <script>(function(){var r=document.documentElement;try{var t=localStorage.getItem('pf-theme');if(t)r.setAttribute('data-theme',t);var d=localStorage.getItem('pf-design2');if(d==='cosmic')r.removeAttribute('data-design');else if(d&&d!=='sunset')r.setAttribute('data-design',d);}catch(e){}})();</script>
 <style>
+@font-face {
+  font-family: "RubikFallback";
+  src: local("Impact"), local("Arial Black");
+  size-adjust: 102%;
+  ascent-override: 96%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
 /* Layout: one 600px column on a deep navy field with drifting particles. Glass top bar, hero card with ringed avatar, channel tabs with a notched detail card, social rows, a code card, footer. */
 :root {
   --font-body: "Outfit", "Hind Siliguri", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-brand: "Rubik Wet Paint", "Outfit", system-ui, sans-serif;
+  --font-brand: "Rubik Wet Paint", "RubikFallback", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
   --bg: #070B16;
   --bg-2: #0B1121;
@@ -845,18 +853,6 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
   }
   var logoReadyP = renderLogo(CFG.photo);
   $('#year').textContent = new Date().getFullYear();
-
-  /* Warm up all fonts silently in background */
-  try {
-    if (document.fonts && document.fonts.load) {
-      document.fonts.load('400 36px "Rubik Wet Paint"');
-      document.fonts.load('400 16px "Outfit"');
-      document.fonts.load('600 16px "Outfit"');
-      document.fonts.load('700 16px "Outfit"');
-      document.fonts.load('400 16px "Hind Siliguri"');
-      document.fonts.load('400 14px "JetBrains Mono"');
-    }
-  } catch (e) {}
 
   /* Social rows (skip rebuilding if already pre-rendered in HTML) */
   var sBox = $('#socials');
