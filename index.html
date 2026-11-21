@@ -1,4 +1,3 @@
-```html
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Premium Portfolio</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -6,8 +5,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://i.ibb.co" crossorigin>
 <link rel="preload" href="https://i.ibb.co/BHYnCNYB/2156-proshot-original-face.png" as="image" fetchpriority="high">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Rubik+Wet+Paint&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Rubik+Wet+Paint&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Rubik+Wet+Paint&family=JetBrains+Mono:wght@400;500&display=block">
 <style>
 /* Layout: one 600px column on a deep navy field with drifting particles. Glass top bar, hero card with ringed avatar, channel tabs with a notched detail card, social rows, a code card, footer. */
 :root {
@@ -97,9 +95,6 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; overflow-x: clip; scrollbar-width: none; -ms-overflow-style: none; }
 html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; height: 0; }
-html.preloading body { overflow: hidden; pointer-events: none; user-select: none; }
-html.preloading .topbar, html.preloading .page, html.preloading footer { opacity: 0; }
-.topbar, .page, footer { transition: opacity .22s ease-out; }
 html.lock, html.lock body { overflow: hidden; }
 html.lock .topbar, html.lock .page, html.lock footer { pointer-events: none !important; user-select: none; }
 body {
@@ -665,18 +660,7 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
   var ORDER = ['messenger', 'whatsapp', 'telegram'];
 
   var root = document.documentElement;
-  root.classList.add('preloading');
-  var revealed = false;
-  var revealTimer = null;
-  function revealPage() {
-    if (revealed) return;
-    revealed = true;
-    clearTimeout(revealTimer);
-    requestAnimationFrame(function () {
-      root.classList.remove('preloading');
-    });
-  }
-  revealTimer = setTimeout(revealPage, 1600);
+  function markLogoReady() {}
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -896,11 +880,11 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
       if (im.getAttribute('src') !== finalUrl) im.src = finalUrl;
       im.classList.add('ready');
     });
-    revealPage();
+    markLogoReady();
   }
 
   function processAndRender(url) {
-    if (!url) { revealPage(); return; }
+    if (!url) { markLogoReady(); return; }
     var probe = new Image();
     if (/^https?:\/\//i.test(url)) probe.crossOrigin = 'anonymous';
     probe.onload = function () {
@@ -911,7 +895,7 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
     probe.onerror = function () {
       var fallback = new Image();
       fallback.onload = function () { applyProcessedSrc(url); };
-      fallback.onerror = function () { revealPage(); };
+      fallback.onerror = function () { markLogoReady(); };
       fallback.src = url;
     };
     probe.src = url;
@@ -1277,4 +1261,3 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
 </script>
 
 </body></html>
-```
