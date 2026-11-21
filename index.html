@@ -137,6 +137,7 @@ a { color: inherit; touch-action: manipulation; }
 .mini svg { width: 18px; height: 18px; display: block; }
 .mini img, .face img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--img-x, 50%) var(--img-y, 26%); -webkit-transform: scale(var(--img-s, 0.96)) translate3d(0, -5%, 0); transform: scale(var(--img-s, 0.96)) translate3d(0, -5%, 0); -webkit-transform-origin: var(--img-x, 50%) var(--img-y, 26%); transform-origin: var(--img-x, 50%) var(--img-y, 26%); background: transparent; opacity: 0; transition: opacity .14s ease-out; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 75%, transparent)) drop-shadow(0 0 14px color-mix(in srgb, var(--accent-2) 55%, transparent)); }
 .mini img.ready, .face img.ready { opacity: 1; }
+.mini img.raw-blend, .face img.raw-blend { -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 54%, rgba(0, 0, 0, .82) 68%, transparent 86%); mask-image: radial-gradient(circle at 50% 42%, #000 54%, rgba(0, 0, 0, .82) 68%, transparent 86%); }
 .face { position: relative; }
 .actions { display: flex; align-items: center; gap: 8px; }
 .icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; cursor: pointer; transition: background .12s, border-color .12s, transform .1s; flex: none; }
@@ -679,6 +680,82 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
   $$('[data-short]').forEach(function (el) { el.textContent = CFG.short; });
 
   var logoUid = 0;
+  function makeLogoSvg() {
+    var gid = 'lg_' + (++logoUid);
+    var sid = 'st_' + logoUid;
+    var cid = 'cl_' + logoUid;
+    var sk = 'sk_' + logoUid;
+    var hr = 'hr_' + logoUid;
+    var sh = 'sh_' + logoUid;
+    return '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<defs>' +
+      '<linearGradient id="' + gid + '" x1="0.05" y1="0.1" x2="0.95" y2="0.9">' +
+      '<stop offset="0%" stop-color="#1D4ED8"/>' +
+      '<stop offset="48%" stop-color="#3B82F6"/>' +
+      '<stop offset="76%" stop-color="#EA580C"/>' +
+      '<stop offset="100%" stop-color="#F59E0B"/>' +
+      '</linearGradient>' +
+      '<radialGradient id="' + sh + '" cx="50%" cy="44%" r="48%">' +
+      '<stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.32"/>' +
+      '<stop offset="65%" stop-color="#FFFFFF" stop-opacity="0.06"/>' +
+      '<stop offset="100%" stop-color="#000000" stop-opacity="0.22"/>' +
+      '</radialGradient>' +
+      '<linearGradient id="' + sk + '" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0%" stop-color="#F7C9AE"/>' +
+      '<stop offset="65%" stop-color="#EEB696"/>' +
+      '<stop offset="100%" stop-color="#DC9D7B"/>' +
+      '</linearGradient>' +
+      '<linearGradient id="' + sid + '" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0%" stop-color="#1A2234"/>' +
+      '<stop offset="100%" stop-color="#070A12"/>' +
+      '</linearGradient>' +
+      '<linearGradient id="' + hr + '" x1="0" y1="0" x2="1" y2="1">' +
+      '<stop offset="0%" stop-color="#140E0D"/>' +
+      '<stop offset="55%" stop-color="#271C19"/>' +
+      '<stop offset="100%" stop-color="#110C0B"/>' +
+      '</linearGradient>' +
+      '<clipPath id="' + cid + '"><circle cx="60" cy="60" r="59"/></clipPath>' +
+      '</defs>' +
+      '<g clip-path="url(#' + cid + ')">' +
+      '<circle cx="60" cy="60" r="60" fill="url(#' + gid + ')"/>' +
+      '<circle cx="60" cy="60" r="60" fill="url(#' + sh + ')"/>' +
+      '<path d="M13 122 C17 94, 34 86, 60 86 C86 86, 103 94, 107 122 Z" fill="url(#' + sid + ')"/>' +
+      '<path d="M44 86 L55 118 L43 105 L46 98 L40 95 Z" fill="#111827"/>' +
+      '<path d="M76 86 L65 118 L77 105 L74 98 L80 95 Z" fill="#111827"/>' +
+      '<path d="M46 84 L60 116 L74 84 L67 80 L60 91 L53 80 Z" fill="#FFFFFF"/>' +
+      '<path d="M48 83 L60 96 L52 98 Z" fill="#E2E8F0"/>' +
+      '<path d="M72 83 L60 96 L68 98 Z" fill="#E2E8F0"/>' +
+      '<path d="M56.8 91 L63.2 91 L62 96.5 L58 96.5 Z" fill="#1E3A8A"/>' +
+      '<path d="M58 96.5 L62 96.5 L64.5 117 L60 121 L55.5 117 Z" fill="#172554"/>' +
+      '<path d="M59.2 97 L60.8 97 L61.5 115 L60 118 L58.5 115 Z" fill="#2563EB" opacity="0.45"/>' +
+      '<path d="M50.5 69 L50.5 86 Q60 92 69.5 86 L69.5 69 Z" fill="#E3AA8B"/>' +
+      '<path d="M50.5 72 Q60 81 69.5 72 L69.5 77.5 Q60 85 50.5 77.5 Z" fill="#C48768" opacity="0.6"/>' +
+      '<ellipse cx="40.2" cy="53.5" rx="3.3" ry="6.2" fill="#E6AE8F"/>' +
+      '<ellipse cx="79.8" cy="53.5" rx="3.3" ry="6.2" fill="#E6AE8F"/>' +
+      '<path d="M41.5 43.5 C41.5 29.5, 78.5 29.5, 78.5 43.5 C78.5 59.5, 72 73.5, 60 75.5 C48 73.5, 41.5 59.5, 41.5 43.5 Z" fill="url(#' + sk + ')"/>' +
+      '<ellipse cx="48" cy="57" rx="4.5" ry="3" fill="#E09A7B" opacity="0.24"/>' +
+      '<ellipse cx="72" cy="57" rx="4.5" ry="3" fill="#E09A7B" opacity="0.24"/>' +
+      '<path d="M45.5 45.5 Q51.5 43.2 56.8 45.4" fill="none" stroke="#1E1412" stroke-width="2.1" stroke-linecap="round"/>' +
+      '<path d="M63.2 45.4 Q68.5 43.2 74.5 45.5" fill="none" stroke="#1E1412" stroke-width="2.1" stroke-linecap="round"/>' +
+      '<ellipse cx="51.4" cy="50.2" rx="3.4" ry="2.1" fill="#FFFFFF"/>' +
+      '<circle cx="51.4" cy="50.2" r="1.75" fill="#1C1210"/>' +
+      '<circle cx="52.1" cy="49.6" r="0.58" fill="#FFFFFF"/>' +
+      '<path d="M48 49.6 Q51.4 47.6 54.8 49.6" fill="none" stroke="#2A1C18" stroke-width="0.9" stroke-linecap="round"/>' +
+      '<ellipse cx="68.6" cy="50.2" rx="3.4" ry="2.1" fill="#FFFFFF"/>' +
+      '<circle cx="68.6" cy="50.2" r="1.75" fill="#1C1210"/>' +
+      '<circle cx="69.3" cy="49.6" r="0.58" fill="#FFFFFF"/>' +
+      '<path d="M65.2 49.6 Q68.6 47.6 72 49.6" fill="none" stroke="#2A1C18" stroke-width="0.9" stroke-linecap="round"/>' +
+      '<path d="M60 49.5 L58.6 58 Q60 59.6 61.8 58" fill="none" stroke="#C5896B" stroke-width="1.45" stroke-linecap="round"/>' +
+      '<path d="M54.2 62.6 Q60 61.3 65.8 62.6" fill="none" stroke="#3E2B24" stroke-width="1.25" stroke-linecap="round" opacity="0.52"/>' +
+      '<path d="M54.4 65.6 Q60 68.2 65.6 65.6" fill="none" stroke="#C07464" stroke-width="2.2" stroke-linecap="round"/>' +
+      '<path d="M55.2 65.5 Q60 66.3 64.8 65.5" fill="none" stroke="#8C4A3E" stroke-width="0.8" stroke-linecap="round" opacity="0.55"/>' +
+      '<path d="M57.4 70.6 Q60 71.7 62.6 70.6" fill="none" stroke="#3E2B24" stroke-width="1.3" stroke-linecap="round" opacity="0.42"/>' +
+      '<path d="M40.2 46.5 C38.5 30, 46.8 20, 61 20 C73.5 20, 81.5 28.5, 79.8 46.5 C78.6 38.5, 75 34.5, 69.2 33.5 C61.5 35.8, 51 34.5, 43.8 38.8 C41.8 40.8, 40.8 43.8, 40.2 46.5 Z" fill="url(#' + hr + ')"/>' +
+      '<path d="M44.5 34.5 C52 26.2, 67.5 25.5, 75.5 32.5 C68 30.2, 54.5 30.5, 44.5 34.5 Z" fill="#3D2E29" opacity="0.6"/>' +
+      '</g>' +
+      '</svg>';
+  }
+
   var cropState = { x: 50, y: 26, s: 0.96 };
 
   function applyCropVars(el) {
@@ -688,9 +765,10 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
   }
 
   var cachedCleanPortrait = null;
-  var CACHE_KEY = 'pf-avatar-clean-v4';
+  var CACHE_KEY = 'pf-avatar-clean-v5';
   try {
     localStorage.removeItem('pf-avatar-clean-v3');
+    localStorage.removeItem('pf-avatar-clean-v4');
     cachedCleanPortrait = localStorage.getItem(CACHE_KEY);
   } catch (e) {}
 
@@ -784,7 +862,7 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
     }
   }
 
-  function applyProcessedSrc(finalUrl) {
+  function applyProcessedSrc(finalUrl, isRawFallback) {
     if (!finalUrl) return;
     $$('[data-avatar]').forEach(function (el) {
       applyCropVars(el);
@@ -798,37 +876,61 @@ footer p { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em
       im.loading = 'eager';
       im.removeAttribute('decoding');
       im.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:var(--img-x,50%) var(--img-y,26%);-webkit-transform:scale(var(--img-s,0.96)) translate3d(0,-5%,0);transform:scale(var(--img-s,0.96)) translate3d(0,-5%,0);-webkit-transform-origin:var(--img-x,50%) var(--img-y,26%);transform-origin:var(--img-x,50%) var(--img-y,26%);display:block;background:transparent';
+      im.classList.toggle('raw-blend', !!isRawFallback);
       if (im.getAttribute('src') !== finalUrl) im.src = finalUrl;
       im.classList.add('ready');
     });
     markLogoReady();
   }
 
+  function applySvgFallback() {
+    $$('[data-avatar]').forEach(function (el) {
+      el.innerHTML = makeLogoSvg();
+    });
+    markLogoReady();
+  }
+
   function processAndRender(url) {
-    if (!url) { markLogoReady(); return; }
-    var probe = new Image();
-    if (/^https?:\/\//i.test(url)) probe.crossOrigin = 'anonymous';
-    probe.onload = function () {
-      stripOuterBg(probe, function (cleanDataUrl) {
-        applyProcessedSrc(cleanDataUrl || url);
+    if (!url) { applySvgFallback(); return; }
+    var settledClean = false;
+    var rawLoaded = false;
+
+    /* Parallel standard image preload (immune to iOS Chrome / WKWebView CORS blocks) */
+    var directProbe = new Image();
+    directProbe.onload = function () {
+      rawLoaded = true;
+      if (!settledClean) applyProcessedSrc(url, true);
+    };
+    directProbe.onerror = function () {
+      if (!settledClean && !rawLoaded) applySvgFallback();
+    };
+    directProbe.src = url;
+
+    /* Parallel CORS probe for canvas pixel background removal */
+    var corsProbe = new Image();
+    if (/^https?:\/\//i.test(url)) corsProbe.crossOrigin = 'anonymous';
+    corsProbe.onload = function () {
+      stripOuterBg(corsProbe, function (cleanDataUrl) {
+        if (cleanDataUrl) {
+          settledClean = true;
+          applyProcessedSrc(cleanDataUrl, false);
+        } else if (rawLoaded) {
+          applyProcessedSrc(url, true);
+        }
       });
     };
-    probe.onerror = function () {
-      var fallback = new Image();
-      fallback.onload = function () { applyProcessedSrc(url); };
-      fallback.onerror = function () { markLogoReady(); };
-      fallback.src = url;
+    corsProbe.onerror = function () {
+      if (rawLoaded && !settledClean) applyProcessedSrc(url, true);
     };
-    probe.src = url;
+    corsProbe.src = url;
   }
 
   function renderLogo(src) {
     var primaryUrl = src || CFG.photo;
     if (cachedCleanPortrait) {
-      applyProcessedSrc(cachedCleanPortrait);
+      applyProcessedSrc(cachedCleanPortrait, false);
       return Promise.resolve();
     }
-    /* Strip white background before revealing the avatar so white background never flashes */
     processAndRender(primaryUrl);
     return Promise.resolve();
   }
