@@ -8,11 +8,20 @@
 <!-- Preload the exact Rubik Wet Paint font file with high priority. -->
 <link rel="preload" as="font" href="https://fonts.gstatic.com/s/rubikwetpaint/v2/HTx0L20u698026853714153647.woff2" type="font/woff2" crossorigin fetchpriority="high">
 <!-- Fetch the other font stylesheet early. -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&text=ALL%20IN%20ONE%20x%20IMRAN&display=swap" fetchpriority="high">
 <link rel="preload" as="font" href="/fonts/Outfit-VariableFont_wght.ttf" type="font/ttf" crossorigin>
 <link rel="preload" as="font" href="/fonts/HindSiliguri-Regular.ttf" type="font/ttf" crossorigin>
 <link rel="preload" as="font" href="/fonts/JetBrainsMono-VariableFont_wght.ttf" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="/style.css">
+<script>
+(function(){
+  var root=document.documentElement;
+  var reveal=function(){root.classList.add('rubik-ready');};
+  if(document.fonts && document.fonts.load){
+    document.fonts.load('400 24px "Rubik Wet Paint"').then(reveal).catch(reveal);
+    window.setTimeout(reveal,5000);
+  } else { reveal(); }
+})();
+</script>
 
 <meta name="claude:viewport-fit-sides" content="cover">
 

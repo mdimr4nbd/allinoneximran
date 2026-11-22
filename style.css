@@ -48,8 +48,8 @@
   font-family: "Rubik Wet Paint";
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
-  src: local("Rubik Wet Paint"), url("https://fonts.gstatic.com/s/rubikwetpaint/v2/HTx0L20u698026853714153647.woff2") format("woff2");
+  font-display: block;
+  src: url("https://fonts.gstatic.com/s/rubikwetpaint/v2/HTx0L20u698026853714153647.woff2") format("woff2");
 }
 
 /* Layout: one 600px column on a deep navy field with drifting particles. Glass top bar, hero card with ringed avatar, channel tabs with a notched detail card, social rows, a code card, footer. */
@@ -507,3 +507,11 @@ code, pre, .mono { font-family: var(--font-mono); }
 h1.hname,.brand .name,.brand-font,footer [data-short]{font-family:var(--font-brand),"Outfit",system-ui,sans-serif;font-synthesis:none}
 @media(max-width:420px){.topbar .wrap{width:calc(100% - 24px);gap:8px}.brand{gap:8px;max-width:calc(100% - 70px)}.brand .mini{width:32px;height:32px;min-width:32px;min-height:32px;flex-basis:32px}.brand .name{font-size:clamp(.72rem,3.1vw,.94rem);letter-spacing:.01em}.topbar .actions{gap:5px}.topbar .icon-btn{width:30px;height:30px;min-width:30px;min-height:30px}}
 @media(max-width:340px){.brand{gap:6px}.brand .mini{width:28px;height:28px;min-width:28px;min-height:28px;flex-basis:28px}.brand .name{font-size:.7rem;letter-spacing:0}}
+
+
+/* Keep brand text hidden until Rubik Wet Paint is ready, preventing a normal-font flash. */
+html:not(.rubik-ready) .brand .name,
+html:not(.rubik-ready) h1.hname .grad,
+html:not(.rubik-ready) footer [data-short] {
+  visibility: hidden;
+}
