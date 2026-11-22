@@ -1,42 +1,42 @@
 /* Self-hosted fonts: Outfit, Hind Siliguri and JetBrains Mono */
 @font-face {
   font-family: "Outfit";
-  src: url("/fonts/Outfit-VariableFont_wght.ttf") format("truetype");
+  src: url("./fonts/Outfit-VariableFont_wght.ttf") format("truetype");
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
 }
 @font-face {
   font-family: "Hind Siliguri";
-  src: url("/fonts/HindSiliguri-Regular.ttf") format("truetype");
+  src: url("./fonts/HindSiliguri-Regular.ttf") format("truetype");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
   font-family: "Hind Siliguri";
-  src: url("/fonts/HindSiliguri-Medium.ttf") format("truetype");
+  src: url("./fonts/HindSiliguri-Medium.ttf") format("truetype");
   font-style: normal;
   font-weight: 500;
   font-display: swap;
 }
 @font-face {
   font-family: "Hind Siliguri";
-  src: url("/fonts/HindSiliguri-SemiBold.ttf") format("truetype");
+  src: url("./fonts/HindSiliguri-SemiBold.ttf") format("truetype");
   font-style: normal;
   font-weight: 600;
   font-display: swap;
 }
 @font-face {
   font-family: "Hind Siliguri";
-  src: url("/fonts/HindSiliguri-Bold.ttf") format("truetype");
+  src: url("./fonts/HindSiliguri-Bold.ttf") format("truetype");
   font-style: normal;
   font-weight: 700;
   font-display: swap;
 }
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("/fonts/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
+  src: url("./fonts/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
   font-style: normal;
   font-weight: 100 800;
   font-display: swap;
@@ -48,8 +48,9 @@
   font-family: "Rubik Wet Paint";
   font-style: normal;
   font-weight: 400;
-  font-display: block;
-  src: url("/fonts/rubik-wet-paint.woff2") format("woff2");
+  font-display: swap;
+  src: url("./fonts/rubik-wet-paint.woff2") format("woff2"),
+       url("https://fonts.gstatic.com/s/rubikwetpaint/v2/HTx0L20u698026853714153647.woff2") format("woff2");
 }
 
 /* Layout: one 600px column on a deep navy field with drifting particles. Glass top bar, hero card with ringed avatar, channel tabs with a notched detail card, social rows, a code card, footer. */
@@ -510,8 +511,3 @@ h1.hname,.brand .name,.brand-font,footer [data-short]{font-family:var(--font-bra
 
 
 /* Keep brand text hidden until Rubik Wet Paint is ready, preventing a normal-font flash. */
-html:not(.rubik-ready) .brand .name,
-html:not(.rubik-ready) h1.hname .grad,
-html:not(.rubik-ready) footer [data-short] {
-  visibility: hidden;
-}
