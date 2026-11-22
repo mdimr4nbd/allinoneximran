@@ -1,12 +1,1 @@
-ALL IN ONE x IMRAN — Updated website files
-
-Upload these two files to the ROOT of your GitHub repository:
-1. index.html (replace the existing index.html)
-2. style.css (new file at repository root)
-
-Keep your existing profile image here: assets/profile.webp
-Do not rename the assets folder or profile.webp.
-
-The page now uses Rubik Wet Paint for the brand/name treatment, Outfit for general English text, Hind Siliguri as Bengali fallback, and JetBrains Mono for code. Font-display is swap, and the profile image is preloaded.
-
-After uploading, commit the changes and wait for Vercel deployment. Then open the site in a fresh Incognito tab.
+Upload/replace index.html and style.css in the GitHub repository root. Keep assets/profile.webp unchanged. Font loading is prioritized: Rubik Wet Paint WOFF2 is preloaded directly; other Google Fonts CSS is preloaded early; font-display: swap keeps text visible while fonts load. Google-hosted font downloads can still depend on the visitor's network.
