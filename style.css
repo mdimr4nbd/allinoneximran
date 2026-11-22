@@ -49,7 +49,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("https://fonts.gstatic.com/s/rubikwetpaint/v2/HTx0L20u698026853714153647.woff2") format("woff2");
+  src: url("/fonts/rubik-wet-paint.woff2") format("woff2");
 }
 
 /* Layout: one 600px column on a deep navy field with drifting particles. Glass top bar, hero card with ringed avatar, channel tabs with a notched detail card, social rows, a code card, footer. */
