@@ -8,10 +8,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="./assets/profile.webp" fetchpriority="high">
-<!-- Preload the exact Rubik Wet Paint font file with high priority. -->
 <link rel="preload" as="font" href="./fonts/rubik-wet-paint.woff2" type="font/woff2" crossorigin="anonymous">
-<!-- Fetch the other font stylesheet early. -->
 <link rel="preload" as="font" href="./fonts/Outfit-VariableFont_wght.ttf" type="font/ttf" crossorigin="anonymous">
 <link rel="preload" as="font" href="./fonts/HindSiliguri-Regular.ttf" type="font/ttf" crossorigin="anonymous">
 <link rel="preload" as="font" href="./fonts/JetBrainsMono-VariableFont_wght.ttf" type="font/ttf" crossorigin="anonymous">
@@ -269,14 +268,12 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Name, avatar, year */
   $$('[data-name]').forEach(function (el) { el.textContent = CFG.name; });
   $$('[data-short]').forEach(function (el) { el.textContent = CFG.short; });
 
   var logoUid = 0;
   $('#year').textContent = new Date().getFullYear();
 
-  /* Social rows (skip rebuilding if already pre-rendered in HTML) */
   var sBox = $('#socials');
   if (sBox && !sBox.children.length) {
     CFG.socials.forEach(function (s) {
@@ -291,7 +288,6 @@
     });
   }
 
-  /* Rotating rings: GPU-accelerated CSS rotation */
   var NS = 'http://www.w3.org/2000/svg';
   function mk(tag, attrs) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
   function addFx(ring, orbit) {
@@ -320,11 +316,9 @@
     av.insertBefore(hs, av.firstChild);
   }
 
-  /* Toast */
   var toastEl = $('#toast'), toastT;
   function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('show'); }, 2200); }
 
-  /* Lightweight Particles */
   var cv = $('#fx'), cx = cv.getContext('2d'), W = 0, H = 0, ps = [], cols = ['#5B8DFF', '#FF8F4F'];
   function fxColors() { var cs = getComputedStyle(root); cols = [cs.getPropertyValue('--accent').trim() || cols[0], cs.getPropertyValue('--accent-2').trim() || cols[1]]; if (reduce) fxDraw(); }
   function fxSize() { W = window.innerWidth; H = window.innerHeight; cv.width = W; cv.height = H; }
@@ -347,7 +341,6 @@
   window.addEventListener('resize', function () { fxSize(); fxInit(); if (reduce) fxDraw(); }, { passive: true });
   if (reduce) fxDraw(); else requestAnimationFrame(fxStep);
 
-  /* Custom Cursor */
   (function () {
     var dot = $('#cDot'), ring = $('#cRing');
     if (!dot || !ring || reduce || !window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
@@ -373,7 +366,6 @@
     document.addEventListener('mouseleave', function () { vis = false; dot.style.opacity = '0'; ring.style.opacity = '0'; }, { passive: true });
   })();
 
-  /* Theme */
   var themeUse = $('use', $('#themeIco'));
   function isLight() { var a = root.getAttribute('data-theme'); if (a) return a === 'light'; return window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches; }
   function syncTheme() { themeUse.setAttribute('href', isLight() ? '#i-moon' : '#i-sun'); fxColors(); }
@@ -387,7 +379,6 @@
   }
   $('#themeBtn').addEventListener('click', toggleTheme);
 
-  /* Overlays */
   var active = null, lastFocus = null;
   var bgSections = $$('.topbar, .page, footer');
   function setBgLocked(locked) {
@@ -433,7 +424,6 @@
     });
   });
 
-  /* Design picker */
   function setDesign(d) {
     if (d === 'sunset') d = 'emerald';
     if (!d || d === 'cosmic') root.removeAttribute('data-design');
@@ -456,7 +446,6 @@
     });
   });
 
-  /* Channel tabs and detail card */
   var ccard = $('#ccard'), chan = 'whatsapp';
   var cIcon = $('#cIcon'), cIcoWrap = $('#cIcoWrap'), cTitle = $('#cTitle'), cSub = $('#cSub'), cPill = $('#cPill'), cDesc = $('#cDesc'), cCtaTxt = $('#cCtaTxt'), cCta = $('#cCta');
   var tabEls = $$('.tab');
@@ -507,7 +496,6 @@
   }
   setChan('whatsapp');
 
-  /* Free Fire Top-Up Page Logic */
   (function () {
     var selectedPkg = '115 Diamond', selectedPrice = '৳85';
     var dmCards = $$('.dm-card'), pkgLbl = $('#selectedPkgLabel'), uidInput = $('#ffUidInput');
@@ -544,7 +532,6 @@
     }
   })();
 
-  /* Live code box */
   (function () {
     var box = $('#codeBox'); if (!box) return;
     var codeCard = box.closest('.code'), codeVisible = true;
@@ -603,7 +590,6 @@
     setInterval(tick, 1000);
   })();
 
-  /* Typing greeting */
   function graphemes(t) {
     try { if (window.Intl && Intl.Segmenter) return Array.from(new Intl.Segmenter('bn', { granularity: 'grapheme' }).segment(t), function (x) { return x.segment; }); } catch (e) {}
     return Array.from(t);
